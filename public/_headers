@@ -6,3 +6,18 @@
 
 /index.html
   Content-Type: text/html; charset=utf-8
+
+/hem
+  Content-Type: text/html; charset=utf-8
+
+/om-oss
+  Content-Type: text/html; charset=utf-8
+
+/tjanster
+  Content-Type: text/html; charset=utf-8
+
+/kontakt
+  Content-Type: text/html; charset=utf-8
+
+/integritetspolicy
+  Content-Type: text/html; charset=utf-8
