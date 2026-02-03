@@ -1,0 +1,82 @@
+# Projektregler för handla-hemsida.com
+
+## Teknisk miljö
+- Detta är en statisk webbplats som hostas på **Cloudflare Pages**.
+- Deployment sker automatiskt via **GitHub-push**.
+- Inga server-side Node.js-funktioner (som `fs` eller `path`) får användas i frontend-koden.
+
+## Kodstandard
+- Skriv modern, semantisk HTML5 och ren CSS.
+- Optimera alla bilder med `loading="lazy"` och korrekt `alt`-text för SEO.
+- Håll JavaScript-filer lätta och modulära.
+
+## Filstorlek & Modularisering (Strikt)
+- **Max 500 rader:** Ingen fil får överskrida 500 rader. Detta är en hård gräns för att säkerställa kodkvalitet och AI-precision.
+- **Proaktiv uppdelning:** Om en fil når 400 rader ska du varna och föreslå hur koden kan delas upp i mindre underkomponenter eller separata logikfiler (hooks/utils).
+- **Håll det atomärt:** Varje fil ska ha ett tydligt syfte. Om en komponent blir för stor, bryt ut UI-delar till egna filer.
+
+
+## AI-instruktioner för Cursor
+- Vid skapande av nya sidor, inkludera alltid `<meta>`-taggar för SEO och Open Graph (för snygg delning på sociala medier).
+- Om jag ber om prestandaoptimering, föreslå tekniker som Cloudflare stödjer (t.ex. Early Hints eller optimerad caching).
+- **Viktigt:** Ändra aldrig filer i mappar som `dist/` eller `build/` manuellt, då dessa genereras av Cloudflare vid varje build.
+
+## Git-arbetsflöde
+- Påminn mig att köra en `git push` efter större ändringar så att Cloudflare kan uppdatera sidan.
+# Beteenderegler för AI (Stoppa förstörelse)
+- **Inga massiva ändringar:** Ändra aldrig mer än nödvändigt. Förklara stora ändringar innan du genomför dem.
+- **Bevara befintlig logik:** Radera aldrig kodblock eller kommentarer utan att fråga först.
+- **Verifiera referenser:** Innan du ändrar en CSS-klass eller en JS-funktion, kontrollera att den inte används på andra ställen.
+- **Skapa backups:** Om du föreslår en stor refactoring, be mig spara en kopia först.
+
+# Cloudflare & Projektstruktur
+- Detta projekt deployas via **Cloudflare Pages**. 
+- Skapa inte filer som kräver en "riktig" server (t.ex. PHP eller Node.js API:er).
+- Håll koden kompatibel med Cloudflares edge-nätverk.
+
+# Kodkvalitet
+- Använd alltid **semantisk HTML**.
+- Om du ändrar designen, se till att den är **mobilanpassad** (responsive).
+- Lägg inte till externa bibliotek (som JQuery eller Tailwind) utan att fråga mig först.
+
+## SEO & Indexering (LIVE-MODUS)
+- **Tillåt indexering:** Sajten ska nu indexeras av sökmotorer. 
+- **robots.txt:** Se till att `public/robots.txt` har innehållet:
+    User-agent: *
+    Allow: /
+- **Headers:** Ta bort alla `X-Robots-Tag: noindex` från `public/_headers`.
+- **Meta-taggar:** Varje sida SKA ha unika `<title>` och `<meta name="description">`. Ta bort alla `<meta name="robots" content="noindex...">`.
+
+## Uppgift: Optimera för Google
+- Säkerställ att alla sidor i `src/pages/` använder semantiska landmärken (<header>, <main>, <footer>).
+- Kontrollera att kontrastförhållandet mellan text och bakgrund följer WCAG-standard (minst 4.5:1).
+
+/* Design Tokens - Synkade med Figma */
+:root {
+  /* Färgpalett */
+  --color-primary: #2563eb;    /* Figma: Brand/Primary */
+  --color-secondary: #64748b;  /* Figma: Brand/Secondary */
+  --color-bg: #ffffff;         /* Figma: Background/Main */
+  --color-text: #1e293b;       /* Figma: Text/Primary */
+
+  /* Typografi (Blixtsnabb System-font) */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-size-base: 16px;
+  --font-weight-reg: 400;
+  --font-weight-bold: 700;
+
+  /* Spacing & Rounds */
+  --radius-md: 8px;
+  --space-md: 1.5rem;
+}
+## Mall- och Innehållsstruktur (Strikt AD-kontroll)
+- **Katalog:** `src/templates/` är reserverad för Ingelas design.
+- **Skapande:** Du får endast skapa en fil här på direkt order via Figma-MCP genom att exakt "rita av" Ingelas ramar (frames).
+- **LÅS:** Så fort en fil existerar i `src/templates/` får du ALDRIG ändra den. Du har endast läsrättighet för att förstå var placeholders som `{title}`, `{content}` och `{image}` ska sitta.
+- **Ingen Logik i Mallar:** Mallarna ska vara rena visuella skal. All logik och datahantering sker utanför, i data-filer (JSON/Markdown) som injiceras i mallarna.
+- **Blixtsnabb kod:** Vid avritning från Figma, generera endast minimal och semantisk HTML/CSS. Inget extra "AI-kladd".
+
+## Ingelas Design-skydd (Strikt)
+- **Rör ej mallarna:** Filer i `src/templates/` är skapade av vår AD Ingela. Du får **aldrig** ändra, refaktorera eller skriva över dessa filer.
+- **Endast läsrättighet:** Du får läsa mallarna för att förstå vilka props/placeholders (t.ex. `{title}`, `{content}`) som finns, men du får inte ändra CSS eller struktur i dem.
+- **Användning:** När du skapar nya sidor ska du *använda* Ingelas mallar som de är. Om något behöver ändras i en mall, säg till mig så att jag kan be Ingela fixa det.

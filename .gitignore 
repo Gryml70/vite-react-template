@@ -1,0 +1,16 @@
+# Cursor/VS Code specifikt
+.cursor/
+.vscode/
+
+# Node/Dependencies (om du använder ramverk)
+node_modules/
+dist/
+build/
+
+# Hemliga nycklar (Viktigt!)
+.env
+.env.local
+
+# Systemfiler
+.DS_Store
+Thumbs.db
