@@ -1,10 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
 
-// Supabase configuration - hardcoded for production reliability
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || "https://aoovgbubyetnymvtshud.supabase.co";
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFvb3ZnYnVieWV0bnltdnRzaHVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg3MjQyMzIsImV4cCI6MjA4NDMwMDIzMn0.mUD_hKnSiXroTxYf6e22vBw37e4QaozJDsKxrFHl8qo";
+// Supabase configuration
+// Production values (anon key is safe for client-side exposure)
+const SUPABASE_URL = "https://aoovgbubyetnymvtshud.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFvb3ZnYnVieWV0bnltdnRzaHVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg3MjQyMzIsImV4cCI6MjA4NDMwMDIzMn0.mUD_hKnSiXroTxYf6e22vBw37e4QaozJDsKxrFHl8qo";
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 /** Typ för mall-innehåll */
 export interface MallContent {
