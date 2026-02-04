@@ -17,5 +17,14 @@ export default defineConfig({
 		},
 		// Increase chunk size warning limit (optional)
 		chunkSizeWarningLimit: 1000,
+		// Inline small CSS to reduce render-blocking requests
+		cssCodeSplit: true,
+		minify: 'terser',
+		terserOptions: {
+			compress: {
+				drop_console: true, // Remove console.logs in production
+				drop_debugger: true,
+			},
+		},
 	},
 });
