@@ -486,7 +486,7 @@ const styles = {
 	},
 	saveButton: {
 		padding: "12px 24px",
-		backgroundColor: "#0984e3",
+		backgroundColor: "#0056b3",
 		color: "white",
 		border: "none",
 		borderRadius: "4px",
@@ -495,7 +495,7 @@ const styles = {
 	},
 	previewButton: {
 		padding: "12px 24px",
-		backgroundColor: "#00b894",
+		backgroundColor: "#008060",
 		color: "white",
 		border: "none",
 		borderRadius: "4px",
@@ -566,7 +566,7 @@ const styles = {
 	editButton: {
 		padding: "6px 12px",
 		marginRight: "8px",
-		backgroundColor: "#0984e3",
+		backgroundColor: "#0056b3",
 		color: "white",
 		border: "none",
 		borderRadius: "4px",
