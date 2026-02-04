@@ -1,6 +1,6 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "vite-react-template",
+	"name": "handla-hemsida",
 	"main": "./src/worker/index.ts",
 	"compatibility_date": "2025-10-08",
 	"compatibility_flags": ["nodejs_compat"],
@@ -8,6 +8,16 @@
 		"enabled": true
 	},
 	"upload_source_maps": true,
+	"routes": [
+		{
+			"pattern": "handla-hemsida.com/*",
+			"custom_domain": true
+		},
+		{
+			"pattern": "www.handla-hemsida.com/*",
+			"custom_domain": true
+		}
+	],
 	"assets": {
 		"directory": "./dist/client",
 		"binding": "ASSETS",
