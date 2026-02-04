@@ -407,14 +407,14 @@ export default function Admin() {
 						</thead>
 						<tbody>
 							{contents.map((content) => (
-								<tr key={content.id} style={styles.tr}>
-									<td style={styles.td}>{content.title}</td>
-									<td style={styles.td}>
-										<a href={`/${content.slug}`} target="_blank" rel="noopener noreferrer">
-											{content.slug}
-										</a>
-									</td>
-									<td style={styles.td}>{content.published ? "Ja" : "Nej"}</td>
+							<tr key={content.id} style={styles.tr}>
+								<td style={styles.td}>{content.title}</td>
+								<td style={styles.td}>
+									<a href={`/${content.slug}`} target="_blank" rel="noopener noreferrer" style={styles.link}>
+										{content.slug}
+									</a>
+								</td>
+								<td style={styles.td}>{content.published ? "Ja" : "Nej"}</td>
 									<td style={styles.td}>
 										{content.created_at
 											? new Date(content.created_at).toLocaleDateString("sv-SE")
@@ -595,5 +595,9 @@ const styles = {
 		border: "none",
 		borderRadius: "4px",
 		cursor: "pointer",
+	},
+	link: {
+		color: "#0056b3",
+		textDecoration: "underline",
 	},
 };
