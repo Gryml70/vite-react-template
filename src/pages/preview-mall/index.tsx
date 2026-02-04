@@ -1,7 +1,16 @@
+import { useEffect } from "react";
 import { Desktop16x9Header } from "../../templates/Desktop_16x9_header";
 
 /** Förhandsvisning av Figma-mallen Desktop_16x9_header */
 export default function PreviewMall() {
+	useEffect(() => {
+		document.title = "Förhandsvisning - Mall | Handla Hemsida";
+		const metaDescription = document.querySelector('meta[name="description"]');
+		if (metaDescription) {
+			metaDescription.setAttribute("content", "Förhandsvisning av Figma-mall Desktop_16x9_header för Handla Hemsida");
+		}
+	}, []);
+
 	return (
 		<div style={{ 
 			width: "100%", 

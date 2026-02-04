@@ -80,3 +80,6 @@
 - **Rör ej mallarna:** Filer i `src/templates/` är skapade av vår AD Ingela. Du får **aldrig** ändra, refaktorera eller skriva över dessa filer.
 - **Endast läsrättighet:** Du får läsa mallarna för att förstå vilka props/placeholders (t.ex. `{title}`, `{content}`) som finns, men du får inte ändra CSS eller struktur i dem.
 - **Användning:** När du skapar nya sidor ska du *använda* Ingelas mallar som de är. Om något behöver ändras i en mall, säg till mig så att jag kan be Ingela fixa det.
+
+
+"När en ny HTML- eller Markdown-sida skapas, inkludera alltid en <meta name="description" content="..."> med en kort sammanfattning av innehållet."

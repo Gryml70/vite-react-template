@@ -29,6 +29,14 @@ export default function Admin() {
 	});
 
 	useEffect(() => {
+		document.title = "Admin - Mall-innehåll | Handla Hemsida";
+		const metaDescription = document.querySelector('meta[name="description"]');
+		if (metaDescription) {
+			metaDescription.setAttribute("content", "Administrera och hantera mall-innehåll för Handla Hemsida");
+		}
+	}, []);
+
+	useEffect(() => {
 		fetchContents();
 	}, []);
 
