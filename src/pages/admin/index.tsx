@@ -147,32 +147,34 @@ export default function Admin() {
 				</h2>
 
 				<div style={styles.formGrid}>
-					{/* Meta */}
-					<div style={styles.formGroup}>
-						<label style={styles.label}>
-							Titel <span style={{ color: "red" }}>*</span>
-						</label>
-						<input
-							type="text"
-							value={form.title || ""}
-							onChange={(e) => setForm({ ...form, title: e.target.value })}
-							style={styles.input}
-							placeholder="T.ex. Välkommen till vår sajt"
-						/>
-					</div>
+				{/* Meta */}
+				<div style={styles.formGroup}>
+					<label htmlFor="title" style={styles.label}>
+						Titel <span style={{ color: "red" }}>*</span>
+					</label>
+					<input
+						id="title"
+						type="text"
+						value={form.title || ""}
+						onChange={(e) => setForm({ ...form, title: e.target.value })}
+						style={styles.input}
+						placeholder="T.ex. Välkommen till vår sajt"
+					/>
+				</div>
 
-					<div style={styles.formGroup}>
-						<label style={styles.label}>
-							Slug (URL) <span style={{ color: "red" }}>*</span>
-						</label>
-						<input
-							type="text"
-							value={form.slug || ""}
-							onChange={(e) => setForm({ ...form, slug: e.target.value })}
-							style={styles.input}
-							placeholder="valkommen-till-var-sajt"
-						/>
-					</div>
+				<div style={styles.formGroup}>
+					<label htmlFor="slug" style={styles.label}>
+						Slug (URL) <span style={{ color: "red" }}>*</span>
+					</label>
+					<input
+						id="slug"
+						type="text"
+						value={form.slug || ""}
+						onChange={(e) => setForm({ ...form, slug: e.target.value })}
+						style={styles.input}
+						placeholder="valkommen-till-var-sajt"
+					/>
+				</div>
 
 					<div style={styles.formGroup}>
 						<label style={styles.label}>
@@ -185,161 +187,175 @@ export default function Admin() {
 						</label>
 					</div>
 
-					{/* Hero Section */}
-					<h3 style={styles.sectionTitle}>Hero-sektion</h3>
+				{/* Hero Section */}
+				<h3 style={styles.sectionTitle}>Hero-sektion</h3>
 
-					<div style={styles.formGroup}>
-						<label style={styles.label}>
-							Hero-bild URL <span style={{ color: "red" }}>*</span>
-						</label>
-						<input
-							type="text"
-							value={form.hero_image || ""}
-							onChange={(e) => setForm({ ...form, hero_image: e.target.value })}
-							style={styles.input}
-							placeholder="https://..."
-						/>
-					</div>
+				<div style={styles.formGroup}>
+					<label htmlFor="hero_image" style={styles.label}>
+						Hero-bild URL <span style={{ color: "red" }}>*</span>
+					</label>
+					<input
+						id="hero_image"
+						type="text"
+						value={form.hero_image || ""}
+						onChange={(e) => setForm({ ...form, hero_image: e.target.value })}
+						style={styles.input}
+						placeholder="https://..."
+					/>
+				</div>
 
-					<div style={styles.formGroup}>
-						<label style={styles.label}>
-							Hero-rubrik <span style={{ color: "red" }}>*</span>
-						</label>
-						<input
-							type="text"
-							value={form.hero_title || ""}
-							onChange={(e) => setForm({ ...form, hero_title: e.target.value })}
-							style={styles.input}
-						/>
-					</div>
+				<div style={styles.formGroup}>
+					<label htmlFor="hero_title" style={styles.label}>
+						Hero-rubrik <span style={{ color: "red" }}>*</span>
+					</label>
+					<input
+						id="hero_title"
+						type="text"
+						value={form.hero_title || ""}
+						onChange={(e) => setForm({ ...form, hero_title: e.target.value })}
+						style={styles.input}
+					/>
+				</div>
 
-					<div style={styles.formGroup}>
-						<label style={styles.label}>
-							Hero-innehåll <span style={{ color: "red" }}>*</span>
-						</label>
-						<textarea
-							value={form.hero_content || ""}
-							onChange={(e) => setForm({ ...form, hero_content: e.target.value })}
-							style={{ ...styles.input, minHeight: "100px" }}
-						/>
-					</div>
+				<div style={styles.formGroup}>
+					<label htmlFor="hero_content" style={styles.label}>
+						Hero-innehåll <span style={{ color: "red" }}>*</span>
+					</label>
+					<textarea
+						id="hero_content"
+						value={form.hero_content || ""}
+						onChange={(e) => setForm({ ...form, hero_content: e.target.value })}
+						style={{ ...styles.input, minHeight: "100px" }}
+					/>
+				</div>
 
-					<div style={styles.formGroup}>
-						<label style={styles.label}>CTA-knapptext</label>
-						<input
-							type="text"
-							value={form.hero_cta_text || ""}
-							onChange={(e) => setForm({ ...form, hero_cta_text: e.target.value })}
-							style={styles.input}
-							placeholder="Kom igång"
-						/>
-					</div>
+				<div style={styles.formGroup}>
+					<label htmlFor="hero_cta_text" style={styles.label}>CTA-knapptext</label>
+					<input
+						id="hero_cta_text"
+						type="text"
+						value={form.hero_cta_text || ""}
+						onChange={(e) => setForm({ ...form, hero_cta_text: e.target.value })}
+						style={styles.input}
+						placeholder="Kom igång"
+					/>
+				</div>
 
-					<div style={styles.formGroup}>
-						<label style={styles.label}>CTA-länk</label>
-						<input
-							type="text"
-							value={form.hero_cta_url || ""}
-							onChange={(e) => setForm({ ...form, hero_cta_url: e.target.value })}
-							style={styles.input}
-							placeholder="/kontakt"
-						/>
-					</div>
+				<div style={styles.formGroup}>
+					<label htmlFor="hero_cta_url" style={styles.label}>CTA-länk</label>
+					<input
+						id="hero_cta_url"
+						type="text"
+						value={form.hero_cta_url || ""}
+						onChange={(e) => setForm({ ...form, hero_cta_url: e.target.value })}
+						style={styles.input}
+						placeholder="/kontakt"
+					/>
+				</div>
 
-					{/* Row 2 & 3 */}
-					<h3 style={styles.sectionTitle}>Row 2 & 3</h3>
+				{/* Row 2 & 3 */}
+				<h3 style={styles.sectionTitle}>Row 2 & 3</h3>
 
-					<div style={styles.formGroup}>
-						<label style={styles.label}>Underrubrik</label>
-						<input
-							type="text"
-							value={form.subtitle || ""}
-							onChange={(e) => setForm({ ...form, subtitle: e.target.value })}
-							style={styles.input}
-						/>
-					</div>
+				<div style={styles.formGroup}>
+					<label htmlFor="subtitle" style={styles.label}>Underrubrik</label>
+					<input
+						id="subtitle"
+						type="text"
+						value={form.subtitle || ""}
+						onChange={(e) => setForm({ ...form, subtitle: e.target.value })}
+						style={styles.input}
+					/>
+				</div>
 
-					<div style={styles.formGroup}>
-						<label style={styles.label}>Rubrik</label>
-						<input
-							type="text"
-							value={form.heading || ""}
-							onChange={(e) => setForm({ ...form, heading: e.target.value })}
-							style={styles.input}
-						/>
-					</div>
+				<div style={styles.formGroup}>
+					<label htmlFor="heading" style={styles.label}>Rubrik</label>
+					<input
+						id="heading"
+						type="text"
+						value={form.heading || ""}
+						onChange={(e) => setForm({ ...form, heading: e.target.value })}
+						style={styles.input}
+					/>
+				</div>
 
-					<div style={styles.formGroup}>
-						<label style={styles.label}>Brödtext</label>
-						<textarea
-							value={form.body || ""}
-							onChange={(e) => setForm({ ...form, body: e.target.value })}
-							style={{ ...styles.input, minHeight: "100px" }}
-						/>
-					</div>
+				<div style={styles.formGroup}>
+					<label htmlFor="body" style={styles.label}>Brödtext</label>
+					<textarea
+						id="body"
+						value={form.body || ""}
+						onChange={(e) => setForm({ ...form, body: e.target.value })}
+						style={{ ...styles.input, minHeight: "100px" }}
+					/>
+				</div>
 
-					<div style={styles.formGroup}>
-						<label style={styles.label}>Row 2 Bild URL</label>
-						<input
-							type="text"
-							value={form.row2_image || ""}
-							onChange={(e) => setForm({ ...form, row2_image: e.target.value })}
-							style={styles.input}
-						/>
-					</div>
+				<div style={styles.formGroup}>
+					<label htmlFor="row2_image" style={styles.label}>Row 2 Bild URL</label>
+					<input
+						id="row2_image"
+						type="text"
+						value={form.row2_image || ""}
+						onChange={(e) => setForm({ ...form, row2_image: e.target.value })}
+						style={styles.input}
+					/>
+				</div>
 
-					<div style={styles.formGroup}>
-						<label style={styles.label}>Row 3 Bild URL</label>
-						<input
-							type="text"
-							value={form.row3_image || ""}
-							onChange={(e) => setForm({ ...form, row3_image: e.target.value })}
-							style={styles.input}
-						/>
-					</div>
+				<div style={styles.formGroup}>
+					<label htmlFor="row3_image" style={styles.label}>Row 3 Bild URL</label>
+					<input
+						id="row3_image"
+						type="text"
+						value={form.row3_image || ""}
+						onChange={(e) => setForm({ ...form, row3_image: e.target.value })}
+						style={styles.input}
+					/>
+				</div>
 
-					{/* Kort-sektion */}
-					<h3 style={styles.sectionTitle}>Kort-sektion</h3>
+				{/* Kort-sektion */}
+				<h3 style={styles.sectionTitle}>Kort-sektion</h3>
 
-					<div style={styles.formGroup}>
-						<label style={styles.label}>Kort-rubrik</label>
-						<input
-							type="text"
-							value={form.cards_title || ""}
-							onChange={(e) => setForm({ ...form, cards_title: e.target.value })}
-							style={styles.input}
-						/>
-					</div>
+				<div style={styles.formGroup}>
+					<label htmlFor="cards_title" style={styles.label}>Kort-rubrik</label>
+					<input
+						id="cards_title"
+						type="text"
+						value={form.cards_title || ""}
+						onChange={(e) => setForm({ ...form, cards_title: e.target.value })}
+						style={styles.input}
+					/>
+				</div>
 
-					<div style={styles.formGroup}>
-						<label style={styles.label}>Kort 1</label>
-						<input
-							type="text"
-							value={form.card1 || ""}
-							onChange={(e) => setForm({ ...form, card1: e.target.value })}
-							style={styles.input}
-						/>
-					</div>
+				<div style={styles.formGroup}>
+					<label htmlFor="card1" style={styles.label}>Kort 1</label>
+					<input
+						id="card1"
+						type="text"
+						value={form.card1 || ""}
+						onChange={(e) => setForm({ ...form, card1: e.target.value })}
+						style={styles.input}
+					/>
+				</div>
 
-					<div style={styles.formGroup}>
-						<label style={styles.label}>Kort 2</label>
-						<input
-							type="text"
-							value={form.card2 || ""}
-							onChange={(e) => setForm({ ...form, card2: e.target.value })}
-							style={styles.input}
-						/>
-					</div>
+				<div style={styles.formGroup}>
+					<label htmlFor="card2" style={styles.label}>Kort 2</label>
+					<input
+						id="card2"
+						type="text"
+						value={form.card2 || ""}
+						onChange={(e) => setForm({ ...form, card2: e.target.value })}
+						style={styles.input}
+					/>
+				</div>
 
-					<div style={styles.formGroup}>
-						<label style={styles.label}>Kort 3</label>
-						<input
-							type="text"
-							value={form.card3 || ""}
-							onChange={(e) => setForm({ ...form, card3: e.target.value })}
-							style={styles.input}
-						/>
-					</div>
+				<div style={styles.formGroup}>
+					<label htmlFor="card3" style={styles.label}>Kort 3</label>
+					<input
+						id="card3"
+						type="text"
+						value={form.card3 || ""}
+						onChange={(e) => setForm({ ...form, card3: e.target.value })}
+						style={styles.input}
+					/>
+				</div>
 				</div>
 
 				<div style={styles.buttonGroup}>
