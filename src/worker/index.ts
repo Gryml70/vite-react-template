@@ -10,15 +10,15 @@ app.get("*", async (c) => {
 	const url = new URL(c.req.url);
 	const path = url.pathname;
 
-	// Hoppa över Vite dev-routes (/@vite, /@react-refresh, /node_modules, /@fs, /__vite)
-	if (path.startsWith("/@") || path.startsWith("/node_modules/") || path.startsWith("/__")) {
-		// I dev finns dessa routes i Vite - returnera 404 så Vite hanterar dem
+	// Om ASSETS inte finns (dev-läge utan ASSETS binding), hoppa över worker-logik
+	if (!c.env?.ASSETS) {
 		return c.notFound();
 	}
 
-	// Om ASSETS inte finns (borde inte hända i prod, men säkerhetscheck), returnera 404
-	if (!c.env?.ASSETS) {
-		return c.notFound();
+	// Hoppa över Vite dev-routes (/@vite, /@react-refresh, /node_modules, /@fs, /__vite)
+	// Låt ASSETS hantera dem direkt
+	if (path.startsWith("/@") || path.startsWith("/node_modules/") || path.startsWith("/__")) {
+		return c.env.ASSETS.fetch(c.req.raw);
 	}
 
 	// Assets med filändelse (.js, .css, .svg osv.) - låt assets hantera med default Content-Type
