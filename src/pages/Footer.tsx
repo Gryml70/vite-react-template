@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 export default function Footer() {
 	return (
 		<footer style={footerStyle}>
-			<p style={pStyle}>© {new Date().getFullYear()} handla-hemsida.com</p>
-			<Link to="/integritetspolicy" style={linkStyle}>
-				Integritetspolicy
-			</Link>
+			<div style={footerInnerStyle}>
+				<p style={pStyle}>© {new Date().getFullYear()} handla-hemsida.com</p>
+				<Link to="/integritetspolicy" style={linkStyle}>
+					Integritetspolicy
+				</Link>
+			</div>
 		</footer>
 	);
 }
@@ -15,8 +17,18 @@ const footerStyle: React.CSSProperties = {
 	fontFamily: "var(--font-family)",
 	background: "var(--color-secondary)",
 	color: "var(--color-bg)",
-	padding: "var(--space-md)",
+	padding: "var(--space-md) 0",
 	marginTop: "auto",
+	width: "100%",
+	boxSizing: "border-box",
+	display: "flex",
+	justifyContent: "center",
+};
+
+const footerInnerStyle: React.CSSProperties = {
+	width: "1440px",
+	maxWidth: "100%",
+	boxSizing: "border-box",
 	display: "flex",
 	justifyContent: "space-between",
 	alignItems: "center",

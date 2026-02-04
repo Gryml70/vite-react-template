@@ -5,25 +5,29 @@ const nav_links = [
 	{ label: "Tjänster", href: "/tjanster" },
 	{ label: "Om oss", href: "/om-oss" },
 	{ label: "Kontakt", href: "/kontakt" },
+	{ label: "Admin", href: "/admin" },
+	{ label: "Förhandsvisning", href: "/preview-mall" },
 ];
 
 export default function Header() {
 	return (
 		<header style={headerStyle}>
-			<Link to="/hem" style={logoStyle}>
-				handla-hemsida.com
-			</Link>
-			<nav aria-label="Huvudnavigering">
-				<ul style={navListStyle}>
-					{nav_links.map(({ label, href }) => (
-						<li key={href}>
-							<Link to={href} style={linkStyle}>
-								{label}
-							</Link>
-						</li>
-					))}
-				</ul>
-			</nav>
+			<div style={headerInnerStyle}>
+				<Link to="/hem" style={logoStyle}>
+					handla-hemsida.com
+				</Link>
+				<nav aria-label="Huvudnavigering">
+					<ul style={navListStyle}>
+						{nav_links.map(({ label, href }) => (
+							<li key={href}>
+								<Link to={href} style={linkStyle}>
+									{label}
+								</Link>
+							</li>
+						))}
+					</ul>
+				</nav>
+			</div>
 		</header>
 	);
 }
@@ -32,12 +36,22 @@ const headerStyle: React.CSSProperties = {
 	fontFamily: "var(--font-family)",
 	background: "var(--color-bg)",
 	color: "var(--color-text)",
-	padding: "var(--space-md)",
+	padding: "var(--space-md) 0",
 	borderBottom: "1px solid var(--color-secondary)",
+	width: "100%",
+	boxSizing: "border-box",
 	display: "flex",
-	justifyContent: "space-between",
+	justifyContent: "center",
+};
+
+const headerInnerStyle: React.CSSProperties = {
+	width: "1440px",
+	maxWidth: "100%",
+	boxSizing: "border-box",
+	display: "flex",
+	flexDirection: "column",
+	justifyContent: "center",
 	alignItems: "center",
-	flexWrap: "wrap",
 	gap: "var(--space-md)",
 };
 

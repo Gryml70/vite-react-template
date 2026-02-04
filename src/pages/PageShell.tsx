@@ -50,19 +50,34 @@ export default function PageShell({
 	);
 }
 
-const articleStyle: React.CSSProperties = { fontFamily: "var(--font-family)" };
+const articleStyle: React.CSSProperties = { 
+	fontFamily: "var(--font-family)",
+	textAlign: "center",
+};
 const h1Style: React.CSSProperties = {
 	fontSize: "1.75rem",
 	fontWeight: "var(--font-weight-bold)",
 	color: "var(--color-text)",
+	textAlign: "center",
 };
 const subtitleStyle: React.CSSProperties = {
 	color: "var(--color-secondary)",
 	fontSize: "var(--font-size-base)",
+	textAlign: "center",
 };
-const imgWrapStyle: React.CSSProperties = { margin: "var(--space-md) 0" };
-const imgStyle: React.CSSProperties = { maxWidth: "100%", borderRadius: "var(--radius-md)" };
-const contentStyle: React.CSSProperties = { lineHeight: 1.6 };
+const imgWrapStyle: React.CSSProperties = { 
+	margin: "var(--space-md) 0",
+	textAlign: "center",
+};
+const imgStyle: React.CSSProperties = { 
+	maxWidth: "100%", 
+	borderRadius: "var(--radius-md)",
+	display: "inline-block",
+};
+const contentStyle: React.CSSProperties = { 
+	lineHeight: 1.6,
+	textAlign: "center",
+};
 const ctaStyle: React.CSSProperties = {
 	display: "inline-block",
 	marginTop: "var(--space-md)",

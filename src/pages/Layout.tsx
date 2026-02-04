@@ -7,12 +7,21 @@ export default function Layout() {
 		<div style={layoutStyle}>
 			<Header />
 			<main style={mainStyle}>
-				<Outlet />
+				<div style={mainInnerStyle}>
+					<Outlet />
+				</div>
 			</main>
 			<Footer />
 		</div>
 	);
 }
+
+const mainInnerStyle: React.CSSProperties = {
+	width: "1440px",
+	maxWidth: "100%",
+	padding: "var(--space-md) 0",
+	boxSizing: "border-box",
+};
 
 const layoutStyle: React.CSSProperties = {
 	minHeight: "100vh",
@@ -25,8 +34,8 @@ const layoutStyle: React.CSSProperties = {
 
 const mainStyle: React.CSSProperties = {
 	flex: 1,
-	padding: "var(--space-md)",
-	maxWidth: "60rem",
-	margin: "0 auto",
 	width: "100%",
+	display: "flex",
+	justifyContent: "center",
+	background: "var(--color-bg)",
 };
