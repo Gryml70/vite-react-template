@@ -7,7 +7,11 @@ app.get("/api/", (c) => c.json({ name: "Cloudflare" }));
 
 // Fallback: för alla andra paths, låt assets hantera men sätt rätt Content-Type
 app.get("*", async (c) => {
-	// Om request path är en asset (har filändelse), låt assets hantera normalt
+	// I dev-läge (när ASSETS inte finns), returnera inte något - Vite hanterar allt
+	if (!c.env.ASSETS) {
+		return c.notFound();
+	}
+	
 	const url = new URL(c.req.url);
 	const path = url.pathname;
 	
