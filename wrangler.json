@@ -11,11 +11,11 @@
 	"upload_source_maps": true,
 	"routes": [
 		{
-			"pattern": "handla-hemsida.com/*",
+			"pattern": "handla-hemsida.com",
 			"custom_domain": true
 		},
 		{
-			"pattern": "www.handla-hemsida.com/*",
+			"pattern": "www.handla-hemsida.com",
 			"custom_domain": true
 		}
 	],
