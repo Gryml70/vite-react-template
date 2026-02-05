@@ -27,8 +27,7 @@ export default function Skrivregler() {
 		}
 	}, []);
 
-	const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || "https://aoovgbubyetnymvtshud.supabase.co";
-	const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+	// Använder lokala API-routes istället för Supabase Edge Functions
 
 	// AI 1: Fråga om regel
 	const askForRule = async () => {
@@ -39,12 +38,10 @@ export default function Skrivregler() {
 		setRuleResponse("");
 
 		try {
-			const response = await fetch(`${supabaseUrl}/functions/v1/skrivregler-create`, {
+			const response = await fetch("/api/ai/create-rule", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					"Authorization": `Bearer ${anonKey}`,
-					"apikey": anonKey,
 				},
 				body: JSON.stringify({ question: question.trim() }),
 			});
@@ -68,12 +65,10 @@ export default function Skrivregler() {
 		}
 
 		try {
-			const response = await fetch(`${supabaseUrl}/functions/v1/skrivregler-save`, {
+			const response = await fetch("/api/seo-rules/save", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					"Authorization": `Bearer ${anonKey}`,
-					"apikey": anonKey,
 				},
 				body: JSON.stringify({ text: selectedText.trim() }),
 			});
@@ -98,12 +93,10 @@ export default function Skrivregler() {
 		setValidationResult("");
 
 		try {
-			const response = await fetch(`${supabaseUrl}/functions/v1/skrivregler-generate`, {
+			const response = await fetch("/api/ai/generate", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					"Authorization": `Bearer ${anonKey}`,
-					"apikey": anonKey,
 				},
 				body: JSON.stringify({ prompt: prompt.trim() }),
 			});
@@ -129,12 +122,10 @@ export default function Skrivregler() {
 		setLoadingValidate(true);
 
 		try {
-			const response = await fetch(`${supabaseUrl}/functions/v1/skrivregler-validate`, {
+			const response = await fetch("/api/ai/validate", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					"Authorization": `Bearer ${anonKey}`,
-					"apikey": anonKey,
 				},
 				body: JSON.stringify({ content: content.trim() }),
 			});
