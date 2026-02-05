@@ -1,54 +1,5 @@
 import { useState, useEffect } from "react";
 
-// SEO-regler som används av AI:n
-const SEO_RULES = `# Grundregler SEO - Svenska webbtexter
-
-## Meta-beskrivningar
-- Max 156 tecken
-- Innehåll: Locka läsaren att klicka
-- Inkludera primärt nyckelord naturligt
-- Skriv en unik beskrivning för varje sida
-
-## Rubriker (H1-H6)
-- **H1**: En per sida, innehåller primärt nyckelord
-- **H2-H3**: Strukturera innehållet logiskt
-- Använd nyckelord naturligt, undvik keyword stuffing
-- Gör rubrikerna beskrivande och informativa
-
-## Nyckelord
-- Primärt nyckelord: 1-2% av totala ord
-- Sekundära nyckelord: Naturligt inbäddade
-- Använd synonymer och relaterade termer
-- Nyckelord i första stycket
-
-## Textstruktur
-- Första stycket: Sammanfattning med primärt nyckelord
-- Korta stycken (max 3-4 meningar)
-- Använd punktlistor för läsbarhet
-- Intern länkning till relaterat innehåll
-
-## Teknisk SEO för texter
-- URL-slug: Korta, beskrivande, med nyckelord
-- Alt-text på bilder: Beskrivande med nyckelord
-- Intern länkning: Ankartexten beskriver destination
-- Extern länkning: Trovärdiga källor, rel="noopener"
-
-## Språk och ton
-- Skriv för människor först, sökmotorer sedan
-- Använd aktivt språk
-- Undvik passiva konstruktioner
-- Var konkret och specifik
-
-## Innehållslängd
-- Minst 300 ord för vanliga sidor
-- 800-2000 ord för blogginlägg och guider
-- Kvalitet före kvantitet
-
-## Call-to-Action (CTA)
-- Tydlig CTA i slutet av texten
-- Använd aktiva verb
-- Gör det lätt att ta nästa steg`;
-
 /** AI-assistent för att skapa SEO-optimerade texter enligt svenska skrivregler */
 export default function Skrivregler() {
 	const [inputText, setInputText] = useState("");
@@ -75,16 +26,10 @@ export default function Skrivregler() {
 		setResultText("");
 
 		try {
-			// Anropa Supabase Edge Function för Claude via OpenRouter
+			// Anropa Supabase Edge Function för Skrivregler AI
 			const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || "https://aoovgbubyetnymvtshud.supabase.co";
 			const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-			const functionUrl = `${supabaseUrl}/functions/v1/openrouter-claude-sonnet`;
-
-			const systemPrompt = `Du är en expert på SEO och svenska webbtexter. Följ dessa regler när du skapar innehåll:
-
-${SEO_RULES}
-
-Svara alltid på svenska. Skapa välskriven, SEO-optimerad text baserat på användarens önskemål.`;
+			const functionUrl = `${supabaseUrl}/functions/v1/skrivregler-ai`;
 
 			const response = await fetch(functionUrl, {
 				method: "POST",
@@ -94,8 +39,7 @@ Svara alltid på svenska. Skapa välskriven, SEO-optimerad text baserat på anv�
 					"apikey": anonKey,
 				},
 				body: JSON.stringify({
-					systemPrompt,
-					userContent: inputText,
+					prompt: inputText,
 				}),
 			});
 
