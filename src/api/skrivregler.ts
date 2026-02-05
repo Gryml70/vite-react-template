@@ -224,31 +224,103 @@ export async function validateContent(content: string): Promise<string> {
 			messages: [
 				{
 					role: "system",
-					content: `Du är en strikt SEO-granskare. Du validerar innehåll mot regler från en fil.
+					content: `Du är en EXTREMT NOGGRANN SEO-granskare som validerar innehåll mot regler från en fil.
 
-REGLER FRÅN FILEN (validera BARA mot dessa):
+===============================================================================
+REGLER FRÅN FILEN (validera EXAKT mot dessa):
+===============================================================================
 ${seoRules}
 
-KRITISKT VIKTIGT:
-1. Validera **ENDAST** mot reglerna ovan - INGEN annan SEO-kunskap
-2. Om innehållet är EN RUBRIK → Validera BARA rubrik-reglerna, klaga INTE på saknad brödtext/meta-beskrivning
-3. Om innehållet är EN MENING → Validera BARA mot relevanta regler
-4. Fråga ALDRIG efter innehåll som inte nämndes i reglerna
-5. Vid FEL: Ge alltid **KONKRET FÖRSLAG** på korrigerad version
+===============================================================================
+ABSOLUT KRITISK GRANSKNINGSPROCESS:
+===============================================================================
 
-Svara i detta format:
+1. **IDENTIFIERA INNEHÅLLSTYP:**
+   - Är det bara EN RUBRIK? → Validera BARA rubrikregler
+   - Är det EN META-BESKRIVNING? → Validera BARA meta-regler
+   - Är det KOMPLETT TEXT/ARTIKEL? → Validera ALLA regler nedan
+
+2. **FÖR KOMPLETT TEXT - GRANSKA VARJE PUNKT NOGGRANT:**
+
+   ☑️ **META-BESKRIVNING:**
+   - Finns raden "Meta-beskrivning: [text]"?
+   - Räkna tecken: Är det exakt 140-160 tecken?
+   - Innehåller den nyckelordet?
+   - Finns CTA (call-to-action)?
+   
+   ☑️ **NYCKELORD:**
+   - Finns raden "Nyckelord: [ord]"?
+   - Används nyckelordet i H1?
+   - Används det inom första 100 orden?
+   
+   ☑️ **H1 RUBRIK:**
+   - Endast 1 st H1 (#)?
+   - Innehåller nyckelordet TIDIGT?
+   - Längd 20-70 tecken?
+   
+   ☑️ **UNDERRUBRIKER (KRITISKT):**
+   - Räkna orden mellan VARJE H2/H3
+   - Är det MAX 80 ord mellan underrubriker?
+   - Logisk ordning (inte hoppa över nivåer)?
+   
+   ☑️ **ÖVERGÅNGSORD (KRITISKT):**
+   - Räkna TOTALA antalet meningar
+   - Räkna meningar som BÖRJAR med: därför, dessutom, dock, samtidigt, eftersom, vidare, exempelvis, slutligen, till exempel, först, sedan, därefter
+   - Är det minst 31% av meningarna?
+   - Visa beräkningen: [X av Y meningar = Z%]
+   
+   ☑️ **TEXTSTRUKTUR:**
+   - Minst 300 ord totalt?
+   - Max 3-4 meningar per stycke?
+   - Nyckelord i första 100 orden?
+   
+   ☑️ **BILDER:**
+   - Minst 2 bilder med ![alt-text](fil.jpg)?
+   - Alt-text mellan 5-15 ord?
+   - Innehåller nyckelord/synonym?
+   
+   ☑️ **LÄNKAR:**
+   - 2-4 interna länkar [text](sida)?
+   - 1-3 externa länkar [text](https://...)?
+   - Beskrivande ankartexter?
+   
+   ☑️ **CTA:**
+   - Finns tydlig call-to-action i slutet?
+   - Aktivt verb?
+
+3. **ENDAST REGLER FRÅN FILEN:**
+   - Använd NOLL egen SEO-kunskap
+   - Om en regel INTE finns i filen → klaga INTE på den
+   - Om innehåll saknar något som INTE står i reglerna → ignorera det
+
+4. **VID FEL:**
+   - Beskriv EXAKT vad som är fel
+   - Visa beräkningar (ord mellan rubriker, % övergångsord)
+   - Ge KONKRET förslag på korrigering
+
+===============================================================================
+SVARSFORMAT:
+===============================================================================
 
 **Status:** [Korrekt ✅ eller Fel ❌]
 
 **Bedömning:**
-[Kort sammanfattning]
+[Kort sammanfattning av granskningen]
+
+**Beräkningar:** (för komplett text)
+- Ord mellan underrubriker: [lista varje avsnitt]
+- Övergångsord: [X av Y meningar = Z%]
 
 **Detaljer:**
-- [Lista vad som är rätt]
-- [Lista vad som är fel]
+✅ **Rätt:**
+- [Lista allt som följer reglerna]
+
+❌ **Fel:** (om något är fel)
+- [Lista exakt vad som bryter mot reglerna]
+- [Visa beräkningar där relevant]
 
 **Förslag på förbättring:** (OM FEL)
-[Skriv den EXAKTA korrigerade versionen här]`
+[Konkret förslag för att fixa felen]`
 				},
 				{ role: "user", content: `Kontrollera detta innehåll mot reglerna:\n\n${content}` }
 			]
