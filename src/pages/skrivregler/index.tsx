@@ -32,6 +32,13 @@ export default function Skrivregler() {
 		}
 	}, []);
 
+	// Reset fix-räknare när innehåll blir korrekt
+	useEffect(() => {
+		if (validationResult && validationResult.includes("Korrekt ✅") && fixAttempts > 0) {
+			setFixAttempts(0);
+		}
+	}, [validationResult, fixAttempts]);
+
 	// Använder lokala API-routes istället för Supabase Edge Functions
 
 	// AI 1: Fråga om regel
@@ -148,7 +155,7 @@ export default function Skrivregler() {
 		}
 	};
 
-	// AI 4: Fixa innehåll automatiskt (med loop)
+	// AI 4: Fixa innehåll (ett försök per knapptryck)
 	const fixContentAutomatically = async () => {
 		if (!generatedContent || !validationResult || !prompt) {
 			setError("Inget innehåll att fixa");
@@ -157,13 +164,13 @@ export default function Skrivregler() {
 
 		// Kolla om redan korrekt
 		if (validationResult.includes("Korrekt ✅")) {
-			alert("✅ Innehållet är redan korrekt!");
+			setError("✅ Innehållet är redan korrekt!");
 			return;
 		}
 
 		// Kolla max försök
 		if (fixAttempts >= MAX_FIX_ATTEMPTS) {
-			setError(`Max ${MAX_FIX_ATTEMPTS} fix-försök nådda. Försök med en annan prompt.`);
+			setError(`Max ${MAX_FIX_ATTEMPTS} fix-försök nådda. Börja om med ny prompt eller tryck "Generera innehåll" igen.`);
 			return;
 		}
 
@@ -192,19 +199,10 @@ export default function Skrivregler() {
 			setFixAttempts(prev => prev + 1);
 			
 			// Validera automatiskt
-			const newValidation = await validateContent(data.content);
+			await validateContent(data.content);
 			
-			// Om fortfarande fel och under max försök, fråga om loop
-			if (newValidation && !newValidation.includes("Korrekt ✅") && fixAttempts + 1 < MAX_FIX_ATTEMPTS) {
-				const shouldContinue = confirm(`Försök ${fixAttempts + 1}/${MAX_FIX_ATTEMPTS} - Innehållet har fortfarande fel. Försöka fixa igen?`);
-				if (shouldContinue) {
-					// Rekursivt anrop (med delay för att inte spamma)
-					setTimeout(() => fixContentAutomatically(), 500);
-				}
-			} else if (newValidation && newValidation.includes("Korrekt ✅")) {
-				alert(`✅ Innehållet är nu korrekt efter ${fixAttempts + 1} försök!`);
-				setFixAttempts(0); // Reset räknare
-			}
+			// Om korrekt, reset räknare
+			// (kontrolleras i nästa render när validationResult uppdaterats)
 		} catch (err) {
 			setError(err instanceof Error ? err.message : "Ett fel uppstod vid fixande");
 		} finally {
@@ -356,11 +354,16 @@ export default function Skrivregler() {
 									...(loadingFix || fixAttempts >= MAX_FIX_ATTEMPTS ? styles.buttonDisabled : {}),
 								}}
 							>
-								🔧 Fixa automatiskt {fixAttempts > 0 && `(${fixAttempts}/${MAX_FIX_ATTEMPTS} försök)`}
+								🔧 Fixa {fixAttempts > 0 ? `igen (${fixAttempts}/${MAX_FIX_ATTEMPTS})` : 'automatiskt'}
 							</button>
+							{fixAttempts > 0 && fixAttempts < MAX_FIX_ATTEMPTS && (
+								<p style={{ color: "#64748b", marginTop: "12px", fontSize: "14px" }}>
+									Försök {fixAttempts} av {MAX_FIX_ATTEMPTS}. Klicka igen för att fortsätta.
+								</p>
+							)}
 							{fixAttempts >= MAX_FIX_ATTEMPTS && (
 								<p style={{ color: "#dc2626", marginTop: "12px", fontSize: "14px" }}>
-									Max försök nådda. Försök med en ny prompt för bättre resultat.
+									Max {MAX_FIX_ATTEMPTS} försök nådda. Börja om med "Generera innehåll" eller ny prompt.
 								</p>
 							)}
 						</div>
@@ -371,6 +374,11 @@ export default function Skrivregler() {
 							<p style={{ color: "#059669", fontSize: "18px", fontWeight: "bold" }}>
 								✅ Innehållet är perfekt!
 							</p>
+							{fixAttempts > 0 && (
+								<p style={{ color: "#64748b", marginTop: "8px", fontSize: "14px" }}>
+									Fixat efter {fixAttempts} {fixAttempts === 1 ? 'försök' : 'försök'}
+								</p>
+							)}
 						</div>
 					)}
 				</section>

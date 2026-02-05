@@ -138,9 +138,33 @@ export async function validateContent(content: string): Promise<string> {
 			messages: [
 				{
 					role: "system",
-					content: `Du är en strikt SEO-granskare. Din uppgift är att kontrollera om ett innehåll följer dessa regler:\n\n${seoRules}\n\nAnalysera innehållet och svara i detta format:\n\n**Status:** [Korrekt ✅ eller Fel ❌]\n\n**Bedömning:**\n[Kort sammanfattning]\n\n**Detaljer:**\n- [Lista vad som är rätt]\n- [Lista vad som är fel, om något]\n\nVar konkret och specifik. Om något är fel, förklara exakt vad och hur det ska rättas.`
+					content: `Du är en strikt SEO-granskare. Du validerar innehåll mot regler från en fil.
+
+REGLER FRÅN FILEN (validera BARA mot dessa):
+${seoRules}
+
+KRITISKT VIKTIGT:
+1. Validera **ENDAST** mot reglerna ovan - INGEN annan SEO-kunskap
+2. Om innehållet är EN RUBRIK → Validera BARA rubrik-reglerna, klaga INTE på saknad brödtext/meta-beskrivning
+3. Om innehållet är EN MENING → Validera BARA mot relevanta regler
+4. Fråga ALDRIG efter innehåll som inte nämndes i reglerna
+5. Vid FEL: Ge alltid **KONKRET FÖRSLAG** på korrigerad version
+
+Svara i detta format:
+
+**Status:** [Korrekt ✅ eller Fel ❌]
+
+**Bedömning:**
+[Kort sammanfattning]
+
+**Detaljer:**
+- [Lista vad som är rätt]
+- [Lista vad som är fel]
+
+**Förslag på förbättring:** (OM FEL)
+[Skriv den EXAKTA korrigerade versionen här]`
 				},
-				{ role: "user", content: `Kontrollera detta innehåll mot SEO-reglerna:\n\n${content}` }
+				{ role: "user", content: `Kontrollera detta innehåll mot reglerna:\n\n${content}` }
 			]
 		})
 	});
