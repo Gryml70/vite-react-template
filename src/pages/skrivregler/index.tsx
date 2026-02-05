@@ -1,5 +1,53 @@
 import { useState, useEffect } from "react";
-import grundreglerSeoMd from "../../skrivregler/grundregler-seo.md?raw";
+
+// SEO-regler som används av AI:n
+const SEO_RULES = `# Grundregler SEO - Svenska webbtexter
+
+## Meta-beskrivningar
+- Max 156 tecken
+- Innehåll: Locka läsaren att klicka
+- Inkludera primärt nyckelord naturligt
+- Skriv en unik beskrivning för varje sida
+
+## Rubriker (H1-H6)
+- **H1**: En per sida, innehåller primärt nyckelord
+- **H2-H3**: Strukturera innehållet logiskt
+- Använd nyckelord naturligt, undvik keyword stuffing
+- Gör rubrikerna beskrivande och informativa
+
+## Nyckelord
+- Primärt nyckelord: 1-2% av totala ord
+- Sekundära nyckelord: Naturligt inbäddade
+- Använd synonymer och relaterade termer
+- Nyckelord i första stycket
+
+## Textstruktur
+- Första stycket: Sammanfattning med primärt nyckelord
+- Korta stycken (max 3-4 meningar)
+- Använd punktlistor för läsbarhet
+- Intern länkning till relaterat innehåll
+
+## Teknisk SEO för texter
+- URL-slug: Korta, beskrivande, med nyckelord
+- Alt-text på bilder: Beskrivande med nyckelord
+- Intern länkning: Ankartexten beskriver destination
+- Extern länkning: Trovärdiga källor, rel="noopener"
+
+## Språk och ton
+- Skriv för människor först, sökmotorer sedan
+- Använd aktivt språk
+- Undvik passiva konstruktioner
+- Var konkret och specifik
+
+## Innehållslängd
+- Minst 300 ord för vanliga sidor
+- 800-2000 ord för blogginlägg och guider
+- Kvalitet före kvantitet
+
+## Call-to-Action (CTA)
+- Tydlig CTA i slutet av texten
+- Använd aktiva verb
+- Gör det lätt att ta nästa steg`;
 
 /** AI-assistent för att skapa SEO-optimerade texter enligt svenska skrivregler */
 export default function Skrivregler() {
@@ -7,7 +55,6 @@ export default function Skrivregler() {
 	const [resultText, setResultText] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
-	const [seoRules, setSeoRules] = useState("");
 
 	useEffect(() => {
 		document.title = "Skrivregler - AI-assistent | Handla Hemsida";
@@ -15,9 +62,6 @@ export default function Skrivregler() {
 		if (metaDescription) {
 			metaDescription.setAttribute("content", "Skapa SEO-optimerade texter med AI-hjälp enligt svenska skrivregler");
 		}
-		
-		// Ladda SEO-reglerna
-		setSeoRules(grundreglerSeoMd);
 	}, []);
 
 	const analyzeText = async () => {
@@ -38,7 +82,7 @@ export default function Skrivregler() {
 
 			const systemPrompt = `Du är en expert på SEO och svenska webbtexter. Följ dessa regler när du skapar innehåll:
 
-${seoRules}
+${SEO_RULES}
 
 Svara alltid på svenska. Skapa välskriven, SEO-optimerad text baserat på användarens önskemål.`;
 
