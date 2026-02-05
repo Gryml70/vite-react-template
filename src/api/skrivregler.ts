@@ -157,11 +157,24 @@ ABSOLUT KRITISKA INSTRUKTIONER:
    ✅ CTA (Call-to-Action):
    - Tydlig CTA i slutet med aktivt verb
 
-4. **KVALITETSKONTROLL INNAN DU SVARAR:**
-   - Räkna ord mellan underrubriker (max 80!)
-   - Räkna meningar med övergångsord (minst 31%!)
-   - Kontrollera meta-beskrivning längd (140-160 tecken)
-   - Verifiera att H1 innehåller nyckelord
+4. **OBLIGATORISK SJÄLVGRANSKNING INNAN OUTPUT:**
+   
+   DU MÅSTE GRANSKA DIN EGEN TEXT MOT VARJE REGEL INNAN DU RETURNERAR DEN:
+   
+   ☑️ Meta-beskrivning: Är den exakt 140-160 tecken? Innehåller nyckelord?
+   ☑️ Nyckelord: Finns det i H1? I första 100 orden?
+   ☑️ H1: Endast 1 st? Innehåller nyckelord tidigt? 20-70 tecken?
+   ☑️ Underrubriker: Räkna orden mellan VARJE H2/H3 - är det max 80 ord?
+   ☑️ Övergångsord: Räkna meningarna - har minst 31% övergångsord i början?
+   ☑️ Textlängd: Minst 300 ord?
+   ☑️ Stycken: Max 3-4 meningar per stycke?
+   ☑️ Bilder: Minst 2 st med alt-text (5-15 ord)?
+   ☑️ Länkar: 2-4 interna + 1-3 externa?
+   ☑️ CTA: Finns tydlig call-to-action?
+   
+   OM NÅGOT INTE STÄMMER → SKRIV OM TEXTEN TILLS ALLA REGLER FÖLJS!
+   
+   GÖR DETTA I DIN INTERNA PROCESS - VISA BARA DEN FÄRDIGA, PERFEKTA TEXTEN!
 
 5. **OUTPUT-FORMAT för komplett text:**
 
