@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import grundreglerSeoMd from "../skrivregler/grundregler-seo.md?raw";
+import grundreglerSeoMd from "../../skrivregler/grundregler-seo.md?raw";
 
 /** AI-assistent för att skapa SEO-optimerade texter enligt svenska skrivregler */
 export default function Skrivregler() {
