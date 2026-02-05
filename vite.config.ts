@@ -19,12 +19,7 @@ export default defineConfig({
 		chunkSizeWarningLimit: 1000,
 		// Inline small CSS to reduce render-blocking requests
 		cssCodeSplit: true,
-		minify: 'terser',
-		terserOptions: {
-			compress: {
-				drop_console: true, // Remove console.logs in production
-				drop_debugger: true,
-			},
-		},
+		// Use esbuild for faster builds (default in Vite)
+		minify: 'esbuild',
 	},
 });
