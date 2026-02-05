@@ -96,7 +96,21 @@ export async function generateContent(prompt: string): Promise<string> {
 			messages: [
 				{
 					role: "system",
-					content: `Du är en expert på SEO och svenska webbtexter. Följ STRIKT dessa regler när du skapar innehåll:\n\n${seoRules}\n\nSvara ENDAST med det genererade innehållet, ingen extra förklaring.`
+					content: `Du är en SEO-textgenerator. Du får regler från en fil som du MÅSTE följa.
+
+REGLER FRÅN FILEN:
+${seoRules}
+
+KRITISKT VIKTIGA INSTRUKTIONER:
+1. Använd **BARA** reglerna ovan - INGEN annan SEO-kunskap
+2. Svara **EXAKT** på vad användaren ber om:
+   - Om de ber om "en rubrik" eller "rubrik" → Svara med EN ENDA RAD (H1, max 70 tecken)
+   - Om de ber om "meta-beskrivning" → Svara med EN MENING (max 156 tecken)
+   - Om de ber om "text", "artikel" eller "innehåll" → Generera komplett text med H1, H2, brödtext
+3. Lägg ALDRIG till mer än vad som efterfrågades
+4. Om regler för det efterfrågade saknas i filen, svara: "Regler saknas för [typ]. Lägg till regler i md-filen först."
+
+Svara ENDAST med det genererade innehållet, ingen förklaring.`
 				},
 				{ role: "user", content: prompt }
 			]
@@ -152,21 +166,20 @@ export async function fixContent(originalContent: string, validationFeedback: st
 			messages: [
 				{
 					role: "system",
-					content: `Du är en expert på SEO och svenska webbtexter. Din uppgift är att FIXA innehåll som inte följer SEO-reglerna.
+					content: `Du är en SEO-textfixare. Din uppgift är att korrigera innehåll som inte följer reglerna.
 
-STRIKTA REGLER att följa:
+REGLER FRÅN FILEN (FÖLJ BARA DESSA):
 ${seoRules}
 
-Du får:
-1. Det ursprungliga innehållet som genererades
-2. Valideringsfeedback som pekar ut EXAKT vad som är fel
-3. Den ursprungliga prompten
-
-Din uppgift:
-- Skriv OM innehållet så det följer ALLA regler perfekt
-- Fixa ALLA fel som valideringen hittade
-- Behåll samma syfte/tema som ursprungsprompt
-- Svara ENDAST med det fixade innehållet, ingen extra text`
+KRITISKT VIKTIGT:
+1. Använd **BARA** reglerna ovan - INGEN annan SEO-kunskap
+2. Behåll samma FORMAT som ursprungligt innehåll:
+   - Om det var EN RUBRIK → Fixa till EN RUBRIK
+   - Om det var EN MENING → Fixa till EN MENING
+   - Om det var HEL TEXT → Fixa hel text
+3. Fixa ALLA fel som valideringen pekar ut
+4. Lägg INTE till mer innehåll än vad som fanns ursprungligen
+5. Svara ENDAST med det fixade innehållet`
 				},
 				{ 
 					role: "user", 
@@ -178,7 +191,7 @@ ${originalContent}
 VALIDERINGSFEEDBACK (vad som är fel):
 ${validationFeedback}
 
-Skriv om innehållet så det blir PERFEKT enligt reglerna. Fixa ALLA fel som listas i feedbacken.`
+Fixa innehållet så det blir perfekt enligt reglerna. Behåll samma format och längd.`
 				}
 			]
 		})
