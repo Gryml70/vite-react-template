@@ -282,3 +282,127 @@ Generera innehåll enligt reglerna du skapat ovan
 Vad vill du generera?
 Generera innehåll
 Genererat innehåll
+
+# SEO-regler för Inläggstext
+
+## Textlängd och struktur
+
+- **Minimilängd**: 300-500 ord för grundläggande SEO
+
+- **Optimalt**: 1000-2000 ord för konkurrenskraftiga sökord
+
+- **Styckelängd**: Max 3-4 meningar per stycke för läsbarhet
+
+## Nyckelord
+
+- **Huvudnyckelord**: Placera inom första 100 orden
+
+- **Nyckelordstäthet**: 0,5-2% av totala texten
+
+- **LSI-nyckelord**: Inkludera 3-5 relaterade termer naturligt
+
+- **Undvik**: Keyword stuffing (överanvändning av nyckelord)
+
+## Rubriker
+
+- **H1**: Endast en, innehåller huvudnyckelord
+
+- **H2-H6**: Logisk hierarki, inkludera variationer av nyckelord
+
+- **Frekvens**: Ny underrubrik var 200-300 ord
+
+## Läsbarhet
+
+- **Flesch Reading Ease**: 60+ (svenska texter)
+
+- **Meningslängd**: Max 20 ord i genomsnitt
+
+- **Passiv form**: Högst 10% av meningarna
+
+- **Övergångsord**: Minst 30% av meningarna
+
+## Formatering
+
+- **Fetstil**: Markera viktiga begrepp (1-3 per 100 ord)
+
+- **Punktlistor**: Bryt upp långa uppräkningar
+
+- **Mellanrum**: Luftig layout med whitespace
+
+## Länkar
+
+- **Interna länkar**: 2-5 till relaterat innehåll
+
+- **Externa länkar**: 1-3 till auktoritativa källor
+
+- **Ankartext**: Beskrivande, varierande
+
+## Meta-element
+
+- **Metabeskrivning**: 140-160 tecken, inkludera nyckelord
+
+- **URL-slug**: Kort, innehåller huvudnyckelord
+
+- **Alt-text bilder**: Beskrivande, inkludera nyckelord när relevant
+
+## Unikt innehåll
+
+- **Originalitet**: 100% unikt, ej kopierat
+
+- **Värde**: Besvara användarens sökintention
+
+- **Uppdatering**: Revidera äldre innehåll regelbundet
+
+---
+
+# Prompt för SEO-optimerad Inläggstext
+
+```
+
+Du är en erfaren svensk innehållsskribent specialiserad på SEO-optimerade webbtexter.
+
+Skapa en bloggpost/artikel enligt följande specifikationer:
+
+ÄMNE: [Beskriv ämnet]
+
+HUVUDNYCKELORD: [Primärt sökord]
+
+SEKUNDÄRA NYCKELORD: [2-4 relaterade sökord]
+
+MÅLGRUPP: [Beskriv målgrupp]
+
+TEXTLÄNGD: [Antal ord]
+
+KRAV:
+
+1. Använd huvudnyckelordet inom första 100 orden
+
+2. Inkludera en H1-rubrik med huvudnyckelordet
+
+3. Skapa 3-5 H2-rubriker med nyckelordsvariationer
+
+4. Håll stycken korta (max 4 meningar)
+
+5. Skriv i aktiv form
+
+6. Använd punktlistor för tydlighet
+
+7. Inkludera 2-3 interna länkförslag (ankartext)
+
+8. Föreslå 1-2 externa länkar till trovärdiga källor
+
+9. Håll läsbarheten på Flesch Reading Ease 60+
+
+10. Nyckelordstäthet: 1-1,5%
+
+FORMAT:
+
+- Leverera text i markdown
+
+- Inkludera förslag till metabeskrivning (150 tecken)
+
+- Föreslå URL-slug
+
+- Markera viktiga begrepp med fetstil
+
+TON: [Professionell/informell/utbildande etc.]

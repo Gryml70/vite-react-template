@@ -204,12 +204,17 @@ export default function Skrivregler() {
 			const data = await response.json();
 			if (!response.ok) throw new Error(data.error || "Kunde inte fixa innehåll");
 			
-			// Uppdatera genererat innehåll
-			setGeneratedContent(data.content);
+			const fixedContent = data.content;
+			
+			// Uppdatera genererat innehåll OCH visa tydligt i UI
+			setGeneratedContent(fixedContent);
 			setFixAttempts(prev => prev + 1);
 			
-			// Validera automatiskt
-			await validateContent(data.content);
+			// Vänta en kort stund så användaren ser den nya rubriken
+			await new Promise(resolve => setTimeout(resolve, 800));
+			
+			// Validera automatiskt den fixade versionen
+			await validateContent(fixedContent);
 			
 			// Om korrekt, reset räknare
 			// (kontrolleras i nästa render när validationResult uppdaterats)
@@ -338,7 +343,10 @@ export default function Skrivregler() {
 						</div>
 
 						<div style={styles.column}>
-							<label htmlFor="generated-content" style={styles.label}>Genererat innehåll</label>
+							<label htmlFor="generated-content" style={styles.label}>
+								Genererat innehåll
+								{loadingFix && <span style={{ marginLeft: "12px", color: "#f59e0b", fontSize: "14px" }}>⚡ Uppdaterar...</span>}
+							</label>
 							<div id="generated-content" style={styles.resultBox}>
 								{loadingGenerate && <p style={styles.loadingText}>AI genererar...</p>}
 								{!loadingGenerate && !generatedContent && <p style={styles.placeholderText}>Genererat innehåll visas här...</p>}
