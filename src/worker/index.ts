@@ -3,13 +3,23 @@ import { basicAuth } from "hono/basic-auth";
 
 const app = new Hono<{ Bindings: Env }>();
 
-// Lösenordsskydd - Basic Authentication
+// Lösenordsskydd - Basic Authentication (endast production)
 // Användarnamn: konto
 // Lösenord: Guld2026!
-app.use("*", basicAuth({
-	username: "konto",
-	password: "Guld2026!",
-}));
+app.use("*", async (c, next) => {
+	// Skippa lösenord på localhost
+	const url = new URL(c.req.url);
+	if (url.hostname === "localhost" || url.hostname === "127.0.0.1") {
+		return next();
+	}
+	
+	// Kör basicAuth på live-sajten
+	const auth = basicAuth({
+		username: "konto",
+		password: "Guld2026!",
+	});
+	return auth(c, next);
+});
 
 // API-rutt
 app.get("/api/", (c) => c.json({ name: "Cloudflare" }));
