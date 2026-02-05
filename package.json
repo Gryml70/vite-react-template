@@ -29,6 +29,7 @@
 		"eslint-plugin-react-hooks": "7.0.1",
 		"eslint-plugin-react-refresh": "0.4.24",
 		"globals": "16.5.0",
+		"supabase": "^2.75.3",
 		"terser": "^5.46.0",
 		"tsx": "^4.21.0",
 		"typescript": "5.8.3",
