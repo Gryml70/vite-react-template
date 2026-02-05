@@ -72,7 +72,15 @@ export default function Skrivregler() {
 	// Spara markerad text till md-fil
 	const saveToMdFile = async () => {
 		if (!selectedText.trim()) {
-			setError("Markera text i svaret först");
+			setError("Markera text i AI:s svar först");
+			return;
+		}
+
+		// Bekräfta innan sparande för att undvika dubbletter
+		const preview = selectedText.substring(0, 150);
+		const confirmSave = confirm(`Vill du lägga till denna text i grundregler-seo.md?\n\n"${preview}${selectedText.length > 150 ? '...' : '"}"\n\n(${selectedText.length} tecken)`);
+		
+		if (!confirmSave) {
 			return;
 		}
 
@@ -88,8 +96,10 @@ export default function Skrivregler() {
 			const data = await response.json();
 			if (!response.ok) throw new Error(data.error || "Kunde inte spara");
 			
-			alert("✅ Text tillagd i grundregler-seo.md!");
+			// Tydlig success-feedback
+			alert(`✅ SPARAT!\n\nText tillagd i grundregler-seo.md\nTotalt ${data.totalLength} tecken i filen\n\nÖppna filen i BBEdit för att se ändringen längst ner.`);
 			setSelectedText("");
+			setError(null);
 		} catch (err) {
 			setError(err instanceof Error ? err.message : "Ett fel uppstod vid sparande");
 		}
@@ -210,11 +220,23 @@ export default function Skrivregler() {
 		}
 	};
 
-	// Hantera textmarkering
-	const handleTextSelection = () => {
+	// Hantera textmarkering (BARA inuti AI:s svarfält)
+	const handleTextSelection = (e: React.MouseEvent<HTMLDivElement>) => {
 		const selection = window.getSelection();
-		if (selection) {
-			setSelectedText(selection.toString());
+		if (!selection || selection.toString().trim().length === 0) {
+			setSelectedText("");
+			return;
+		}
+
+		// Kontrollera att markeringen är INUTI detta element
+		const container = e.currentTarget;
+		const range = selection.getRangeAt(0);
+		
+		// Kolla om markeringen börjar och slutar inuti rätt container
+		if (container.contains(range.startContainer) && container.contains(range.endContainer)) {
+			setSelectedText(selection.toString().trim());
+		} else {
+			setSelectedText(""); // Markeringen är utanför svarfältet
 		}
 	};
 

@@ -101,3 +101,184 @@
 ✗ Duplicera inte samma rubrik på flera sidor
 
 ✗ Lämna inte tomma rubriknivåer
+
+# SEO-regler för innehållstext
+
+## Längd och struktur
+
+- **Minimilängd:** 300 ord (helst 500-1000 ord för bättre ranking)
+
+- **Styckelängd:** Max 150 ord per stycke
+
+- **Meningslängd:** Variera mellan korta och långa meningar (genomsnitt 15-20 ord)
+
+## Nyckelord
+
+- **Huvudnyckelord:** Förekommer inom första 100 orden
+
+- **Nyckelordsdensitet:** 1-2% av total text
+
+- **Placering:** Naturligt integrerade i löptext
+
+- **LSI-nyckelord:** Inkludera semantiskt relaterade ord och synonymer
+
+## Läsbarhet
+
+- **Flesch Reading Score:** Minst 60 (LIX max 40 för svenska texter)
+
+- **Aktivt språk:** Använd aktiv röst framför passiv
+
+- **Korta ord:** Undvik onödigt krångliga ord
+
+- **Tydligt budskap:** En huvudpoäng per stycke
+
+## Formatering
+
+- Använd fetstil för viktiga begrepp
+
+- Lägg in punktlistor och numrerade listor
+
+- Inkludera relevanta mellanrubriker (H2, H3)
+
+- Bryt upp text med bilder, tabeller eller citat
+
+## Engagement
+
+- **Inledning:** Fånga uppmärksamhet i första meningen
+
+- **Värde:** Besvara användarens fråga tydligt
+
+- **Call-to-action:** Avsluta med tydlig uppmaning
+
+- **Intern länkning:** 2-4 relevanta interna länkar per 500 ord
+
+## Unikt innehåll
+
+- **Originalitet:** 100% unikt innehåll (ej duplicerat)
+
+- **Djup:** Ge mer värde än konkurrerande sidor
+
+- **Aktualitet:** Håll innehållet uppdaterat
+
+# SEO-regler för innehållstext
+
+## Längd och struktur
+
+- **Minimilängd:** 300 ord (helst 500-1000 ord för bättre ranking)
+
+- **Styckelängd:** Max 150 ord per stycke
+
+- **Meningslängd:** Variera mellan korta och långa meningar (genomsnitt 15-20 ord)
+
+## Nyckelord
+
+- **Huvudnyckelord:** Förekommer inom första 100 orden
+
+- **Nyckelordsdensitet:** 1-2% av total text
+
+- **Placering:** Naturligt integrerade i löptext
+
+- **LSI-nyckelord:** Inkludera semantiskt relaterade ord och synonymer
+
+## Läsbarhet
+
+- **Flesch Reading Score:** Minst 60 (LIX max 40 för svenska texter)
+
+- **Aktivt språk:** Använd aktiv röst framför passiv
+
+- **Korta ord:** Undvik onödigt krångliga ord
+
+- **Tydligt budskap:** En huvudpoäng per stycke
+
+## Formatering
+
+- Använd fetstil för viktiga begrepp
+
+- Lägg in punktlistor och numrerade listor
+
+- Inkludera relevanta mellanrubriker (H2, H3)
+
+- Bryt upp text med bilder, tabeller eller citat
+
+## Engagement
+
+- **Inledning:** Fånga uppmärksamhet i första meningen
+
+- **Värde:** Besvara användarens fråga tydligt
+
+- **Call-to-action:** Avsluta med tydlig uppmaning
+
+- **Intern länkning:** 2-4 relevanta interna länkar per 500 ord
+
+## Unikt innehåll
+
+- **Originalitet:** 100% unikt innehåll (ej duplicerat)
+
+- **Djup:** Ge mer värde än konkurrerande sidor
+
+- **Aktualitet:** Håll innehållet uppdaterat
+
+# SEO-regler för innehållstext
+
+## Längd och struktur
+
+- **Minimilängd:** 300 ord (helst 500-1000 ord för bättre ranking)
+
+- **Styckelängd:** Max 150 ord per stycke
+
+- **Meningslängd:** Variera mellan korta och långa meningar (genomsnitt 15-20 ord)
+
+## Nyckelord
+
+- **Huvudnyckelord:** Förekommer inom första 100 orden
+
+- **Nyckelordsdensitet:** 1-2% av total text
+
+- **Placering:** Naturligt integrerade i löptext
+
+- **LSI-nyckelord:** Inkludera semantiskt relaterade ord och synonymer
+
+## Läsbarhet
+
+- **Flesch Reading Score:** Minst 60 (LIX max 40 för svenska texter)
+
+- **Aktivt språk:** Använd aktiv röst framför passiv
+
+- **Korta ord:** Undvik onödigt krångliga ord
+
+- **Tydligt budskap:** En huvudpoäng per stycke
+
+## Formatering
+
+- Använd fetstil för viktiga begrepp
+
+- Lägg in punktlistor och numrerade listor
+
+- Inkludera relevanta mellanrubriker (H2, H3)
+
+- Bryt upp text med bilder, tabeller eller citat
+
+## Engagement
+
+- **Inledning:** Fånga uppmärksamhet i första meningen
+
+- **Värde:** Besvara användarens fråga tydligt
+
+- **Call-to-action:** Avsluta med tydlig uppmaning
+
+- **Intern länkning:** 2-4 relevanta interna länkar per 500 ord
+
+## Unikt innehåll
+
+- **Originalitet:** 100% unikt innehåll (ej duplicerat)
+
+- **Djup:** Ge mer värde än konkurrerande sidor
+
+- **Aktualitet:** Håll innehållet uppdaterat
+
+2. Testa innehållsgenerering
+Generera innehåll enligt reglerna du skapat ovan
+
+Vad vill du generera?
+Generera innehåll
+Genererat innehåll
