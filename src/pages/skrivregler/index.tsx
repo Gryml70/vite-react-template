@@ -1,72 +1,161 @@
 import { useState, useEffect } from "react";
 
-/** AI-assistent för att skapa SEO-optimerade texter enligt svenska skrivregler */
+/** Skrivregler - Tre AI-assistenter för att skapa, testa och validera SEO-regler */
 export default function Skrivregler() {
-	const [inputText, setInputText] = useState("");
-	const [resultText, setResultText] = useState("");
-	const [loading, setLoading] = useState(false);
+	// AI 1 - Skapa regler
+	const [question, setQuestion] = useState("");
+	const [ruleResponse, setRuleResponse] = useState("");
+	const [loadingRule, setLoadingRule] = useState(false);
+	const [selectedText, setSelectedText] = useState("");
+
+	// AI 2 - Generera innehåll
+	const [prompt, setPrompt] = useState("");
+	const [generatedContent, setGeneratedContent] = useState("");
+	const [loadingGenerate, setLoadingGenerate] = useState(false);
+
+	// AI 3 - Validera innehåll
+	const [validationResult, setValidationResult] = useState("");
+	const [loadingValidate, setLoadingValidate] = useState(false);
+
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		document.title = "Skrivregler - AI-assistent | Handla Hemsida";
 		const metaDescription = document.querySelector('meta[name="description"]');
 		if (metaDescription) {
-			metaDescription.setAttribute("content", "Skapa SEO-optimerade texter med AI-hjälp enligt svenska skrivregler");
+			metaDescription.setAttribute("content", "Skapa och testa SEO-regler med AI-hjälp");
 		}
 	}, []);
 
-	const analyzeText = async () => {
-		if (!inputText.trim()) {
-			setError("Vänligen skriv eller klistra in text att analysera");
-			return;
-		}
+	const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || "https://aoovgbubyetnymvtshud.supabase.co";
+	const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-		setLoading(true);
+	// AI 1: Fråga om regel
+	const askForRule = async () => {
+		if (!question.trim()) return;
+		
+		setLoadingRule(true);
 		setError(null);
-		setResultText("");
+		setRuleResponse("");
 
 		try {
-			// Anropa Supabase Edge Function för Skrivregler AI
-			const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || "https://aoovgbubyetnymvtshud.supabase.co";
-			const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-			const functionUrl = `${supabaseUrl}/functions/v1/skrivregler-ai`;
-
-			const response = await fetch(functionUrl, {
+			const response = await fetch(`${supabaseUrl}/functions/v1/skrivregler-create`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 					"Authorization": `Bearer ${anonKey}`,
 					"apikey": anonKey,
 				},
-				body: JSON.stringify({
-					prompt: inputText,
-				}),
+				body: JSON.stringify({ question: question.trim() }),
 			});
 
-			if (!response.ok) {
-				const errorData = await response.json().catch(() => ({}));
-				throw new Error(errorData.error || `HTTP ${response.status}: Kunde inte anropa AI-tjänsten`);
-			}
-
 			const data = await response.json();
+			if (!response.ok) throw new Error(data.error || "Kunde inte hämta regel");
 			
-			if (data.content) {
-				setResultText(data.content);
-			} else {
-				throw new Error("Inget svar från AI-tjänsten");
-			}
+			setRuleResponse(data.content);
 		} catch (err) {
-			console.error("Error analyzing text:", err);
-			setError(err instanceof Error ? err.message : "Ett okänt fel uppstod");
+			setError(err instanceof Error ? err.message : "Ett fel uppstod");
 		} finally {
-			setLoading(false);
+			setLoadingRule(false);
 		}
 	};
 
-	const clearAll = () => {
-		setInputText("");
-		setResultText("");
+	// Spara markerad text till md-fil
+	const saveToMdFile = async () => {
+		if (!selectedText.trim()) {
+			setError("Markera text i svaret först");
+			return;
+		}
+
+		try {
+			const response = await fetch(`${supabaseUrl}/functions/v1/skrivregler-save`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${anonKey}`,
+					"apikey": anonKey,
+				},
+				body: JSON.stringify({ text: selectedText.trim() }),
+			});
+
+			const data = await response.json();
+			if (!response.ok) throw new Error(data.error || "Kunde inte spara");
+			
+			alert("✅ Text tillagd i grundregler-seo.md!");
+			setSelectedText("");
+		} catch (err) {
+			setError(err instanceof Error ? err.message : "Ett fel uppstod vid sparande");
+		}
+	};
+
+	// AI 2: Generera innehåll enligt regler
+	const generateContent = async () => {
+		if (!prompt.trim()) return;
+		
+		setLoadingGenerate(true);
 		setError(null);
+		setGeneratedContent("");
+		setValidationResult("");
+
+		try {
+			const response = await fetch(`${supabaseUrl}/functions/v1/skrivregler-generate`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${anonKey}`,
+					"apikey": anonKey,
+				},
+				body: JSON.stringify({ prompt: prompt.trim() }),
+			});
+
+			const data = await response.json();
+			if (!response.ok) throw new Error(data.error || "Kunde inte generera innehåll");
+			
+			setGeneratedContent(data.content);
+			
+			// Automatisk validering
+			validateContent(data.content);
+		} catch (err) {
+			setError(err instanceof Error ? err.message : "Ett fel uppstod");
+		} finally {
+			setLoadingGenerate(false);
+		}
+	};
+
+	// AI 3: Validera innehåll
+	const validateContent = async (content: string) => {
+		if (!content.trim()) return;
+		
+		setLoadingValidate(true);
+
+		try {
+			const response = await fetch(`${supabaseUrl}/functions/v1/skrivregler-validate`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${anonKey}`,
+					"apikey": anonKey,
+				},
+				body: JSON.stringify({ content: content.trim() }),
+			});
+
+			const data = await response.json();
+			if (!response.ok) throw new Error(data.error || "Kunde inte validera");
+			
+			setValidationResult(data.content);
+		} catch (err) {
+			setError(err instanceof Error ? err.message : "Ett fel uppstod vid validering");
+		} finally {
+			setLoadingValidate(false);
+		}
+	};
+
+	// Hantera textmarkering
+	const handleTextSelection = () => {
+		const selection = window.getSelection();
+		if (selection) {
+			setSelectedText(selection.toString());
+		}
 	};
 
 	return (
@@ -74,73 +163,124 @@ export default function Skrivregler() {
 			<div style={styles.container}>
 				<h1 style={styles.title}>Skrivregler - AI-assistent</h1>
 				<p style={styles.description}>
-					Beskriv vad du vill ha för text så skapar vår AI-assistent SEO-optimerat innehåll enligt svenska skrivregler.
+					Skapa SEO-regler med AI, testa innehållsgenerering, och validera resultat automatiskt.
 				</p>
 
-			{/* Buttons */}
-			<div style={styles.buttonGroup}>
-				<button
-					onClick={analyzeText}
-					disabled={loading || !inputText.trim()}
-					style={{
-						...styles.button,
-						...styles.primaryButton,
-						...(loading || !inputText.trim() ? styles.buttonDisabled : {}),
-					}}
-				>
-					{loading ? "Genererar..." : "Generera text"}
-				</button>
-				<button
-					onClick={clearAll}
-					disabled={loading}
-					style={{
-						...styles.button,
-						...styles.secondaryButton,
-						...(loading ? styles.buttonDisabled : {}),
-					}}
-				>
-					Rensa allt
-				</button>
-			</div>
+				{error && (
+					<div style={styles.error}>
+						<strong>Fel:</strong> {error}
+					</div>
+				)}
 
-			{/* Error Message */}
-			{error && (
-				<div style={styles.error}>
-					<strong>Fel:</strong> {error}
-				</div>
-			)}
+				{/* SEKTION 1: Skapa regler */}
+				<section style={styles.section}>
+					<h2 style={styles.sectionTitle}>1. Skapa SEO-regler</h2>
+					<p style={styles.sectionDesc}>Fråga AI om en regel, markera svaret, och spara till grundregler-seo.md</p>
+					
+					<div style={styles.twoColumns}>
+						<div style={styles.column}>
+							<label htmlFor="question" style={styles.label}>Din fråga</label>
+							<textarea
+								id="question"
+								value={question}
+								onChange={(e) => setQuestion(e.target.value)}
+								style={styles.textarea}
+								placeholder="T.ex: hur ser reglerna ut för korrekt seo för H1"
+								rows={8}
+							/>
+							<button
+								onClick={askForRule}
+								disabled={loadingRule || !question.trim()}
+								style={{
+									...styles.button,
+									...styles.primaryButton,
+									...(loadingRule || !question.trim() ? styles.buttonDisabled : {}),
+								}}
+							>
+								{loadingRule ? "Frågar AI..." : "Fråga AI"}
+							</button>
+						</div>
 
-			{/* Two Column Layout */}
-			<div style={styles.twoColumns}>
-				{/* Input Section */}
-				<div style={styles.column}>
-					<label htmlFor="input-text" style={styles.label}>
-						Beskriv vad du vill ha
-					</label>
-					<textarea
-						id="input-text"
-						value={inputText}
-						onChange={(e) => setInputText(e.target.value)}
-						style={styles.textarea}
-						placeholder="T.ex: Skriv en rubrik och ingress för en sida om hemsidor för småföretag..."
-						rows={20}
-					/>
-				</div>
+						<div style={styles.column}>
+							<label htmlFor="rule-response" style={styles.label}>AI:s svar (markera text att spara)</label>
+							<div
+								id="rule-response"
+								style={styles.resultBox}
+								onMouseUp={handleTextSelection}
+							>
+								{loadingRule && <p style={styles.loadingText}>AI tänker...</p>}
+								{!loadingRule && !ruleResponse && <p style={styles.placeholderText}>Svaret visas här...</p>}
+								{!loadingRule && ruleResponse && ruleResponse.split('\n').map((line, index) => (
+									<p key={index} style={styles.resultLine}>{line}</p>
+								))}
+							</div>
+							{selectedText && (
+								<div style={styles.selectedTextInfo}>
+									Markerad text ({selectedText.length} tecken) - 
+									<button onClick={saveToMdFile} style={styles.saveButton}>
+										Lägg till i md-fil
+									</button>
+								</div>
+							)}
+						</div>
+					</div>
+				</section>
 
-				{/* Result Section */}
-				<div style={styles.column}>
-					<label htmlFor="result-text" style={styles.label}>
-						Genererad text (enligt SEO-regler)
-					</label>
-					<div id="result-text" style={styles.resultBox}>
-						{loading && <p style={styles.loadingText}>Genererar SEO-optimerad text...</p>}
-						{!loading && !resultText && <p style={styles.placeholderText}>Den genererade texten visas här...</p>}
-						{!loading && resultText && resultText.split('\n').map((line, index) => (
+				{/* SEKTION 2: Generera innehåll */}
+				<section style={styles.section}>
+					<h2 style={styles.sectionTitle}>2. Testa innehållsgenerering</h2>
+					<p style={styles.sectionDesc}>Generera innehåll enligt reglerna du skapat ovan</p>
+					
+					<div style={styles.twoColumns}>
+						<div style={styles.column}>
+							<label htmlFor="prompt" style={styles.label}>Vad vill du generera?</label>
+							<textarea
+								id="prompt"
+								value={prompt}
+								onChange={(e) => setPrompt(e.target.value)}
+								style={styles.textarea}
+								placeholder="T.ex: skriv en rubrik om wordpress"
+								rows={8}
+							/>
+							<button
+								onClick={generateContent}
+								disabled={loadingGenerate || !prompt.trim()}
+								style={{
+									...styles.button,
+									...styles.primaryButton,
+									...(loadingGenerate || !prompt.trim() ? styles.buttonDisabled : {}),
+								}}
+							>
+								{loadingGenerate ? "Genererar..." : "Generera innehåll"}
+							</button>
+						</div>
+
+						<div style={styles.column}>
+							<label htmlFor="generated-content" style={styles.label}>Genererat innehåll</label>
+							<div id="generated-content" style={styles.resultBox}>
+								{loadingGenerate && <p style={styles.loadingText}>AI genererar...</p>}
+								{!loadingGenerate && !generatedContent && <p style={styles.placeholderText}>Genererat innehåll visas här...</p>}
+								{!loadingGenerate && generatedContent && generatedContent.split('\n').map((line, index) => (
+									<p key={index} style={styles.resultLine}>{line}</p>
+								))}
+							</div>
+						</div>
+					</div>
+				</section>
+
+				{/* SEKTION 3: Validera innehåll */}
+				<section style={styles.section}>
+					<h2 style={styles.sectionTitle}>3. Automatisk validering</h2>
+					<p style={styles.sectionDesc}>AI kontrollerar om det genererade innehållet följer reglerna</p>
+					
+					<div style={styles.validationBox}>
+						{loadingValidate && <p style={styles.loadingText}>Validerar...</p>}
+						{!loadingValidate && !validationResult && <p style={styles.placeholderText}>Validering körs automatiskt när innehåll genereras...</p>}
+						{!loadingValidate && validationResult && validationResult.split('\n').map((line, index) => (
 							<p key={index} style={styles.resultLine}>{line}</p>
 						))}
 					</div>
-				</div>
-			</div>
+				</section>
 			</div>
 		</div>
 	);
@@ -168,13 +308,24 @@ const styles: Record<string, React.CSSProperties> = {
 	description: {
 		fontSize: "16px",
 		color: "#64748b",
-		marginBottom: "24px",
+		marginBottom: "40px",
 		lineHeight: 1.6,
 	},
-	buttonGroup: {
-		display: "flex",
-		gap: "12px",
-		flexWrap: "wrap",
+	section: {
+		marginBottom: "48px",
+		padding: "32px",
+		backgroundColor: "white",
+		borderRadius: "12px",
+		boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+	},
+	sectionTitle: {
+		fontSize: "24px",
+		marginBottom: "8px",
+		color: "#1e293b",
+	},
+	sectionDesc: {
+		fontSize: "14px",
+		color: "#64748b",
 		marginBottom: "24px",
 	},
 	twoColumns: {
@@ -203,7 +354,6 @@ const styles: Record<string, React.CSSProperties> = {
 		fontFamily: "system-ui, sans-serif",
 		resize: "none",
 		boxSizing: "border-box",
-		minHeight: "500px",
 	},
 	button: {
 		padding: "12px 24px",
@@ -218,9 +368,15 @@ const styles: Record<string, React.CSSProperties> = {
 		backgroundColor: "#0056b3",
 		color: "white",
 	},
-	secondaryButton: {
-		backgroundColor: "#64748b",
+	saveButton: {
+		padding: "8px 16px",
+		fontSize: "14px",
+		backgroundColor: "#008060",
 		color: "white",
+		border: "none",
+		borderRadius: "6px",
+		cursor: "pointer",
+		marginLeft: "8px",
 	},
 	buttonDisabled: {
 		opacity: 0.5,
@@ -232,15 +388,25 @@ const styles: Record<string, React.CSSProperties> = {
 		border: "1px solid #fcc",
 		borderRadius: "8px",
 		color: "#c00",
+		marginBottom: "24px",
 	},
 	resultBox: {
 		padding: "20px",
-		backgroundColor: "white",
+		backgroundColor: "#f9fafb",
 		border: "1px solid #ddd",
 		borderRadius: "8px",
-		minHeight: "500px",
-		maxHeight: "500px",
+		minHeight: "300px",
+		maxHeight: "400px",
 		overflowY: "auto",
+		userSelect: "text",
+		cursor: "text",
+	},
+	validationBox: {
+		padding: "20px",
+		backgroundColor: "#f9fafb",
+		border: "2px solid #ddd",
+		borderRadius: "8px",
+		minHeight: "200px",
 	},
 	resultLine: {
 		margin: "8px 0",
@@ -254,5 +420,13 @@ const styles: Record<string, React.CSSProperties> = {
 	placeholderText: {
 		color: "#94a3b8",
 		fontStyle: "italic",
+	},
+	selectedTextInfo: {
+		padding: "12px",
+		backgroundColor: "#eff6ff",
+		border: "1px solid #3b82f6",
+		borderRadius: "6px",
+		fontSize: "14px",
+		color: "#1e40af",
 	},
 };
