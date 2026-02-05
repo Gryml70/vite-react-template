@@ -1,18 +1,23 @@
 import { useState, useEffect } from "react";
+import grundreglerSeoMd from "../skrivregler/grundregler-seo.md?raw";
 
-/** AI-assistent för att kontrollera och förbättra texter enligt svenska skrivregler */
+/** AI-assistent för att skapa SEO-optimerade texter enligt svenska skrivregler */
 export default function Skrivregler() {
 	const [inputText, setInputText] = useState("");
 	const [resultText, setResultText] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
+	const [seoRules, setSeoRules] = useState("");
 
 	useEffect(() => {
 		document.title = "Skrivregler - AI-assistent | Handla Hemsida";
 		const metaDescription = document.querySelector('meta[name="description"]');
 		if (metaDescription) {
-			metaDescription.setAttribute("content", "Kontrollera och förbättra dina texter med AI-hjälp enligt svenska skrivregler");
+			metaDescription.setAttribute("content", "Skapa SEO-optimerade texter med AI-hjälp enligt svenska skrivregler");
 		}
+		
+		// Ladda SEO-reglerna
+		setSeoRules(grundreglerSeoMd);
 	}, []);
 
 	const analyzeText = async () => {
@@ -31,6 +36,12 @@ export default function Skrivregler() {
 			const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 			const functionUrl = `${supabaseUrl}/functions/v1/openrouter-claude-sonnet`;
 
+			const systemPrompt = `Du är en expert på SEO och svenska webbtexter. Följ dessa regler när du skapar innehåll:
+
+${seoRules}
+
+Svara alltid på svenska. Skapa välskriven, SEO-optimerad text baserat på användarens önskemål.`;
+
 			const response = await fetch(functionUrl, {
 				method: "POST",
 				headers: {
@@ -39,16 +50,8 @@ export default function Skrivregler() {
 					"apikey": anonKey,
 				},
 				body: JSON.stringify({
-					systemPrompt: `Du är en expert på svenska skrivregler och språkriktighet. Analysera texten användaren ger dig och:
-
-1. Identifiera grammatiska fel
-2. Hitta stavfel
-3. Kontrollera interpunktion
-4. Föreslå förbättringar av meningsbyggnad
-5. Ge förslag på mer professionell eller tydligare formulering
-
-Svara alltid på svenska. Strukturera ditt svar tydligt med rubriker för varje kategori. Om texten är bra som den är, bekräfta det och ge eventuella små förbättringsförslag.`,
-					userContent: `Analysera följande text:\n\n${inputText}`,
+					systemPrompt,
+					userContent: inputText,
 				}),
 			});
 
@@ -83,71 +86,73 @@ Svara alltid på svenska. Strukturera ditt svar tydligt med rubriker för varje 
 			<div style={styles.container}>
 				<h1 style={styles.title}>Skrivregler - AI-assistent</h1>
 				<p style={styles.description}>
-					Klistra in eller skriv din text nedan så analyserar vår AI-assistent texten enligt svenska skrivregler
-					och ger dig förbättringsförslag.
+					Beskriv vad du vill ha för text så skapar vår AI-assistent SEO-optimerat innehåll enligt svenska skrivregler.
 				</p>
 
-				<div style={styles.content}>
-					{/* Input Section */}
-					<div style={styles.section}>
-						<label htmlFor="input-text" style={styles.label}>
-							Din text
-						</label>
-						<textarea
-							id="input-text"
-							value={inputText}
-							onChange={(e) => setInputText(e.target.value)}
-							style={styles.textarea}
-							placeholder="Skriv eller klistra in din text här..."
-							rows={12}
-						/>
-					</div>
+			{/* Buttons */}
+			<div style={styles.buttonGroup}>
+				<button
+					onClick={analyzeText}
+					disabled={loading || !inputText.trim()}
+					style={{
+						...styles.button,
+						...styles.primaryButton,
+						...(loading || !inputText.trim() ? styles.buttonDisabled : {}),
+					}}
+				>
+					{loading ? "Genererar..." : "Generera text"}
+				</button>
+				<button
+					onClick={clearAll}
+					disabled={loading}
+					style={{
+						...styles.button,
+						...styles.secondaryButton,
+						...(loading ? styles.buttonDisabled : {}),
+					}}
+				>
+					Rensa allt
+				</button>
+			</div>
 
-					{/* Buttons */}
-					<div style={styles.buttonGroup}>
-						<button
-							onClick={analyzeText}
-							disabled={loading || !inputText.trim()}
-							style={{
-								...styles.button,
-								...styles.primaryButton,
-								...(loading || !inputText.trim() ? styles.buttonDisabled : {}),
-							}}
-						>
-							{loading ? "Analyserar..." : "Analysera text"}
-						</button>
-						<button
-							onClick={clearAll}
-							disabled={loading}
-							style={{
-								...styles.button,
-								...styles.secondaryButton,
-								...(loading ? styles.buttonDisabled : {}),
-							}}
-						>
-							Rensa allt
-						</button>
-					</div>
-
-					{/* Error Message */}
-					{error && (
-						<div style={styles.error}>
-							<strong>Fel:</strong> {error}
-						</div>
-					)}
-
-					{/* Result Section */}
-					{resultText && (
-						<div style={styles.section}>
-							<label style={styles.label}>Analys och förbättringsförslag</label>
-							<div style={styles.resultBox}>
-								{resultText.split('\n').map((line, index) => (
-									<p key={index} style={styles.resultLine}>{line}</p>
-								))}
-							</div>
-						</div>
-					)}
+			{/* Error Message */}
+			{error && (
+				<div style={styles.error}>
+					<strong>Fel:</strong> {error}
 				</div>
+			)}
+
+			{/* Two Column Layout */}
+			<div style={styles.twoColumns}>
+				{/* Input Section */}
+				<div style={styles.column}>
+					<label htmlFor="input-text" style={styles.label}>
+						Beskriv vad du vill ha
+					</label>
+					<textarea
+						id="input-text"
+						value={inputText}
+						onChange={(e) => setInputText(e.target.value)}
+						style={styles.textarea}
+						placeholder="T.ex: Skriv en rubrik och ingress för en sida om hemsidor för småföretag..."
+						rows={20}
+					/>
+				</div>
+
+				{/* Result Section */}
+				<div style={styles.column}>
+					<label htmlFor="result-text" style={styles.label}>
+						Genererad text (enligt SEO-regler)
+					</label>
+					<div id="result-text" style={styles.resultBox}>
+						{loading && <p style={styles.loadingText}>Genererar SEO-optimerad text...</p>}
+						{!loading && !resultText && <p style={styles.placeholderText}>Den genererade texten visas här...</p>}
+						{!loading && resultText && resultText.split('\n').map((line, index) => (
+							<p key={index} style={styles.resultLine}>{line}</p>
+						))}
+					</div>
+				</div>
+			</div>
 			</div>
 		</div>
 	);
@@ -175,15 +180,22 @@ const styles: Record<string, React.CSSProperties> = {
 	description: {
 		fontSize: "16px",
 		color: "#64748b",
-		marginBottom: "32px",
+		marginBottom: "24px",
 		lineHeight: 1.6,
 	},
-	content: {
+	buttonGroup: {
 		display: "flex",
-		flexDirection: "column",
-		gap: "24px",
+		gap: "12px",
+		flexWrap: "wrap",
+		marginBottom: "24px",
 	},
-	section: {
+	twoColumns: {
+		display: "grid",
+		gridTemplateColumns: "1fr 1fr",
+		gap: "24px",
+		width: "100%",
+	},
+	column: {
 		display: "flex",
 		flexDirection: "column",
 		gap: "12px",
@@ -201,13 +213,9 @@ const styles: Record<string, React.CSSProperties> = {
 		border: "1px solid #ddd",
 		borderRadius: "8px",
 		fontFamily: "system-ui, sans-serif",
-		resize: "vertical",
+		resize: "none",
 		boxSizing: "border-box",
-	},
-	buttonGroup: {
-		display: "flex",
-		gap: "12px",
-		flexWrap: "wrap",
+		minHeight: "500px",
 	},
 	button: {
 		padding: "12px 24px",
@@ -242,11 +250,21 @@ const styles: Record<string, React.CSSProperties> = {
 		backgroundColor: "white",
 		border: "1px solid #ddd",
 		borderRadius: "8px",
-		minHeight: "200px",
+		minHeight: "500px",
+		maxHeight: "500px",
+		overflowY: "auto",
 	},
 	resultLine: {
 		margin: "8px 0",
 		lineHeight: 1.6,
 		color: "#1e293b",
+	},
+	loadingText: {
+		color: "#64748b",
+		fontStyle: "italic",
+	},
+	placeholderText: {
+		color: "#94a3b8",
+		fontStyle: "italic",
 	},
 };
