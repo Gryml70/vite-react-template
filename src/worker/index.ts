@@ -4,10 +4,10 @@ import { basicAuth } from "hono/basic-auth";
 const app = new Hono<{ Bindings: Env }>();
 
 // Lösenordsskydd - Basic Authentication
-// Användarnamn: admin
+// Användarnamn: konto
 // Lösenord: HandlaHemsida2026!
 app.use("*", basicAuth({
-	username: "admin",
+	username: "konto",
 	password: "HandlaHemsida2026!",
 }));
 
