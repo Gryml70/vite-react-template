@@ -1,408 +1,103 @@
-# Grundregler SEO - Svenska webbtexter
+--------------------------------------------------------------------------------
+PROMPT FÖR SEO-OPTIMERAD TEXT (SVENSKA)
+--------------------------------------------------------------------------------
+
+Du är en skicklig innehållsskribent med fokus på SEO-optimerade, svenska webbtexter. Följ samtliga riktlinjer nedan strikt. Leverera alltid texten i klarspråk för människor, men med tydlig struktur och nyckelord som sökmotorer förstår.
+
+1. META-BESKRIVNING
+   • Längd: 140–160 tecken.  
+   • Innehåll: Beskriv sidans innehåll lockande och inkludera ditt huvudnyckelord.  
+   • CTA: Uppmana läsaren att klicka eller agera.  
+   • Unik för varje sida (ingen duplicering).
+
+2. RUBRIKER (H1–H6)
+   • Endast 1 st H1 per sida, innehållande huvudnyckelordet tidigt.  
+   • Använd H2, H3 osv. i logisk ordning — hoppa aldrig över rubriknivåer.  
+   • H2–H3 strukturerar innehållet, inkluderar gärna sekundära nyckelord eller synonymer.  
+   • Håll rubrikerna korta (H1: 20–70 tecken, H2–H3: 20–60 tecken) och undvik hela meningar i rubriker.  
+   • Var beskrivande och informativ, undvik keyword stuffing.
+
+3. NYCKELORD
+   • Huvudnyckelord: Bör inkluderas inom de första 100 orden och ha en densitet på ca 1–2% av total text.  
+   • Sekundära nyckelord: Inkludera naturligt, variera gärna med synonymer och relaterade termer (LSI).  
+   • Undvik överdriven repetition (keyword stuffing).
+
+4. TEXTSTRUKTUR & LÄNGD
+   • Minimilängd per sida: 300 ord. Helst 800–2000 ord för blogginlägg eller utförliga guider.  
+   • Styckelängd: Max 3–4 meningar eller ca 150 ord per stycke för läsbarhet.  
+   • Använd korta, varierade meningar (genomsnitt 15–20 ord).  
+   • Använd punktlistor, numrerade listor och relevanta mellanrubriker (H2, H3) för tydlig struktur.  
+   • Inledning: Bör innehålla huvudnyckelordet i första stycket.
+
+5. LÄSBARHET & TON
+   • Använd aktiv röst, undvik passiv form när det går.  
+   • Sikta på Flesch Reading Ease ≥ 60 eller LIX ≤ 40 (svenska texter).  
+   • Använd enkla ord och var konkret.  
+   • Tonalitet: Anpassa efter målgrupp och syfte (professionell, informell, utbildande etc.).  
+   • En tydlig huvudpoäng per stycke.
+
+6. TEKNISK SEO
+   • URL-slug: Kort, beskrivande, gärna med huvudnyckelord (inga onödiga stoppord).  
+   • Alt-text till bilder: 5–15 ord som beskriver bilden och gärna innehåller nyckelord/synonym. Undvik ”bild på…”.  
+   • Intern länkning: 2–4 länkar per 500 ord till relevant innehåll, med beskrivande ankartexter.  
+   • Extern länkning: 1–3 länkar till trovärdiga källor (rel="noopener", öppna i nytt fönster) per sida eller inlägg.  
+   • Endast en H1-tagg i HTML, använd inte rubriker för ren styling.
+
+7. CALL-TO-ACTION (CTA)
+   • Ha minst en tydlig CTA i slutet av texten eller där det passar bäst.  
+   • Använd aktiva verb för att inspirera till handling (ex. ”Börja idag”, ”Läs mer”).
+
+8. UNIKT OCH VÄRDESKAPANDE INNEHÅLL
+   • 100% originalitet – inga duplicerade texter.  
+   • Ge läsaren mervärde, svara på deras frågor och var mer djupgående än konkurrenterna.  
+   • Håll innehållet uppdaterat vid behov.
+
+9. SAMMANFATTANDE CHECKLISTA
+   • Meta-beskrivning (140–160 tecken) med huvudnyckelord.  
+   • Endast 1 H1, innehållande huvudnyckelord tidigt.  
+   • Nyckelord i första stycket.  
+   • Rubriker (H2–H3) som inkluderar sekundära nyckelord eller synonymer.  
+   • Nyckelordsdensitet cirka 1–2%.  
+   • Minst 2–3 interna länkar och 1–3 externa länkar till trovärdiga källor.  
+   • Minst 1–2 bilder med alt-texter.  
+   • CTA i textens avslut.  
+   • Läsbarhet: Flesch 60+ (LIX max 40), aktiv röst.  
+   • Unik text med hög relevans och tydlig struktur.
+
+--------------------------------------------------------------------------------
+EXEMPEL FÖR HUR DU GÖR EN OMFATTANDE FÖRFRÅGAN TILL AI-SKRIBENTEN:
+--------------------------------------------------------------------------------
+
+1) Instruktioner till AI-skribenten:
+
+"Du är en erfaren svensk SEO-skribent. Skriv en artikel enligt följande:
+
+ÄMNE: [Ange ämnet här]  
+HUVUDNYCKELORD: [Ange primärt sökord]  
+SEKUNDÄRA NYCKELORD: [Ange 2–4 relaterade sökord/synonymer]  
+MÅLGRUPP: [Beskriv målgruppen]  
+TEXTLÄNGD: [Ange antal ord, minst 300 ord, helst 800–2000]
+
+KRAV:  
+• Använd huvudnyckelordet i H1 samt i första 100 orden.  
+• Skapa minst tre H2-rubriker och inkludera sekundära nyckelord naturligt.  
+• Stycken ska vara högst 3–4 meningar.  
+• Använd aktiv röst och sikta på Flesch Reading Ease över 60.  
+• Infoga minst 2 interna länkar (beskriv ankartext) och 1–3 relevanta externa länkar.  
+• Inkludera minst 1 bildreferens med en alt-text (5–15 ord) som innehåller nyckelord/synonym.  
+• Metabeskrivning: 140–160 tecken med huvudnyckelord och CTA.  
+• Rekommendera en URL-slug.  
+• Markera viktiga begrepp med fetstil (bold).
+
+Anpassa ton och språkbruk efter [professionell, informell, utbildande etc.]. Leverera texten i markdown-format.
+
+2) Exempel på rubriker i texten:
+• H1: [Huvudnyckelord tidigt]  
+• H2 (ex.): "Så börjar du med [synonym/relaterat nyckelord]"  
+• H2 (ex.): "Vanliga frågor om [huvudnyckelord]"  
+
+3) Föreslagna ankartexter för interna länkar är t.ex. "lär dig mer om X", "upptäck vår guide om Y", etc.
+
+--------------------------------------------------------------------------------
 
-## Meta-beskrivningar
-- Max 156 tecken
-- Innehåll: Locka läsaren att klicka
-- Inkludera primärt nyckelord naturligt
-- Skriv en unik beskrivning för varje sida
-
-## Rubriker (H1-H6)
-- **H1**: En per sida, innehåller primärt nyckelord
-- **H2-H3**: Strukturera innehållet logiskt
-- Använd nyckelord naturligt, undvik keyword stuffing
-- Gör rubrikerna beskrivande och informativa
-
-## Nyckelord
-- Primärt nyckelord: 1-2% av totala ord
-- Sekundära nyckelord: Naturligt inbäddade
-- Använd synonymer och relaterade termer
-- Nyckelord i första stycket
-
-## Textstruktur
-- Första stycket: Sammanfattning med primärt nyckelord
-- Korta stycken (max 3-4 meningar)
-- Använd punktlistor för läsbarhet
-- Intern länkning till relaterat innehåll
-
-## Teknisk SEO för texter
-- URL-slug: Korta, beskrivande, med nyckelord
-- Alt-text på bilder: Beskrivande med nyckelord
-- Intern länkning: Ankartexten beskriver destination
-- Extern länkning: Trovärdiga källor, rel="noopener"
-
-## Språk och ton
-- Skriv för människor först, sökmotorer sedan
-- Använd aktivt språk
-- Undvik passiva konstruktioner
-- Var konkret och specifik
-
-## Innehållslängd
-- Minst 300 ord för vanliga sidor
-- 800-2000 ord för blogginlägg och guider
-- Kvalitet före kvantitet
-
-## Call-to-Action (CTA)
-- Tydlig CTA i slutet av texten
-- Använd aktiva verb
-- Gör det lätt att ta nästa steg
-
-# SEO-regler för Rubriker
-
-## Hierarkisk Struktur
-
-- **En H1 per sida** - Huvudrubriken som beskriver sidans innehåll
-
-- **Logisk ordning** - H1 → H2 → H3 → H4 osv, hoppa aldrig över nivåer
-
-- **H2 för huvudavsnitt** - Dela upp innehållet i tydliga sektioner
-
-- **H3-H6 för underrubriker** - Skapa djupare struktur vid behov
-
-## Nyckelord och Innehåll
-
-- **H1 ska innehålla primärt nyckelord** - Helst tidigt i rubriken
-
-- **H2 kan innehålla sekundära nyckelord** - Variera språket naturligt
-
-- **Undvik keyword stuffing** - Skriv för människor först
-
-- **Beskrivande text** - Rubriken ska tydligt beskriva avsnittet
-
-## Längd och Format
-
-- **H1: 20-70 tecken** - Optimal längd för både SEO och läsbarhet
-
-- **H2-H3: 20-60 tecken** - Kortare än H1, men fortfarande beskrivande
-
-- **Undvik hela meningar** - Håll det koncist
-
-- **Använd frågor strategiskt** - Fungerar bra för H2 (matchar röstsökningar)
-
-## Tekniska Krav
-
-- **Endast en H1-tagg** i HTML-koden
-
-- **Använd inte rubriker för styling** - H-taggar är semantiska element
-
-- **Mobilvänlig formatering** - Testa att rubriker bryts snyggt på mobil
-
-- **Undvik VERSALER** - Använd normal kapitalisering
-
-## Best Practices
-
-✓ Gör rubriker självförklarande
-
-✓ Använd aktiva verb när det passar
-
-✓ Inkludera lokala nyckelord för lokal SEO (t.ex. "Stockholm")
-
-✓ Testa läsbarhet - ska förstås utan att läsa brödtexten
-
-✗ Duplicera inte samma rubrik på flera sidor
-
-✗ Lämna inte tomma rubriknivåer
-
-# SEO-regler för innehållstext
-
-## Längd och struktur
-
-- **Minimilängd:** 300 ord (helst 500-1000 ord för bättre ranking)
-
-- **Styckelängd:** Max 150 ord per stycke
-
-- **Meningslängd:** Variera mellan korta och långa meningar (genomsnitt 15-20 ord)
-
-## Nyckelord
-
-- **Huvudnyckelord:** Förekommer inom första 100 orden
-
-- **Nyckelordsdensitet:** 1-2% av total text
-
-- **Placering:** Naturligt integrerade i löptext
-
-- **LSI-nyckelord:** Inkludera semantiskt relaterade ord och synonymer
-
-## Läsbarhet
-
-- **Flesch Reading Score:** Minst 60 (LIX max 40 för svenska texter)
-
-- **Aktivt språk:** Använd aktiv röst framför passiv
-
-- **Korta ord:** Undvik onödigt krångliga ord
-
-- **Tydligt budskap:** En huvudpoäng per stycke
-
-## Formatering
-
-- Använd fetstil för viktiga begrepp
-
-- Lägg in punktlistor och numrerade listor
-
-- Inkludera relevanta mellanrubriker (H2, H3)
-
-- Bryt upp text med bilder, tabeller eller citat
-
-## Engagement
-
-- **Inledning:** Fånga uppmärksamhet i första meningen
-
-- **Värde:** Besvara användarens fråga tydligt
-
-- **Call-to-action:** Avsluta med tydlig uppmaning
-
-- **Intern länkning:** 2-4 relevanta interna länkar per 500 ord
-
-## Unikt innehåll
-
-- **Originalitet:** 100% unikt innehåll (ej duplicerat)
-
-- **Djup:** Ge mer värde än konkurrerande sidor
-
-- **Aktualitet:** Håll innehållet uppdaterat
-
-# SEO-regler för innehållstext
-
-## Längd och struktur
-
-- **Minimilängd:** 300 ord (helst 500-1000 ord för bättre ranking)
-
-- **Styckelängd:** Max 150 ord per stycke
-
-- **Meningslängd:** Variera mellan korta och långa meningar (genomsnitt 15-20 ord)
-
-## Nyckelord
-
-- **Huvudnyckelord:** Förekommer inom första 100 orden
-
-- **Nyckelordsdensitet:** 1-2% av total text
-
-- **Placering:** Naturligt integrerade i löptext
-
-- **LSI-nyckelord:** Inkludera semantiskt relaterade ord och synonymer
-
-## Läsbarhet
-
-- **Flesch Reading Score:** Minst 60 (LIX max 40 för svenska texter)
-
-- **Aktivt språk:** Använd aktiv röst framför passiv
-
-- **Korta ord:** Undvik onödigt krångliga ord
-
-- **Tydligt budskap:** En huvudpoäng per stycke
-
-## Formatering
-
-- Använd fetstil för viktiga begrepp
-
-- Lägg in punktlistor och numrerade listor
-
-- Inkludera relevanta mellanrubriker (H2, H3)
-
-- Bryt upp text med bilder, tabeller eller citat
-
-## Engagement
-
-- **Inledning:** Fånga uppmärksamhet i första meningen
-
-- **Värde:** Besvara användarens fråga tydligt
-
-- **Call-to-action:** Avsluta med tydlig uppmaning
-
-- **Intern länkning:** 2-4 relevanta interna länkar per 500 ord
-
-## Unikt innehåll
-
-- **Originalitet:** 100% unikt innehåll (ej duplicerat)
-
-- **Djup:** Ge mer värde än konkurrerande sidor
-
-- **Aktualitet:** Håll innehållet uppdaterat
-
-# SEO-regler för innehållstext
-
-## Längd och struktur
-
-- **Minimilängd:** 300 ord (helst 500-1000 ord för bättre ranking)
-
-- **Styckelängd:** Max 150 ord per stycke
-
-- **Meningslängd:** Variera mellan korta och långa meningar (genomsnitt 15-20 ord)
-
-## Nyckelord
-
-- **Huvudnyckelord:** Förekommer inom första 100 orden
-
-- **Nyckelordsdensitet:** 1-2% av total text
-
-- **Placering:** Naturligt integrerade i löptext
-
-- **LSI-nyckelord:** Inkludera semantiskt relaterade ord och synonymer
-
-## Läsbarhet
-
-- **Flesch Reading Score:** Minst 60 (LIX max 40 för svenska texter)
-
-- **Aktivt språk:** Använd aktiv röst framför passiv
-
-- **Korta ord:** Undvik onödigt krångliga ord
-
-- **Tydligt budskap:** En huvudpoäng per stycke
-
-## Formatering
-
-- Använd fetstil för viktiga begrepp
-
-- Lägg in punktlistor och numrerade listor
-
-- Inkludera relevanta mellanrubriker (H2, H3)
-
-- Bryt upp text med bilder, tabeller eller citat
-
-## Engagement
-
-- **Inledning:** Fånga uppmärksamhet i första meningen
-
-- **Värde:** Besvara användarens fråga tydligt
-
-- **Call-to-action:** Avsluta med tydlig uppmaning
-
-- **Intern länkning:** 2-4 relevanta interna länkar per 500 ord
-
-## Unikt innehåll
-
-- **Originalitet:** 100% unikt innehåll (ej duplicerat)
-
-- **Djup:** Ge mer värde än konkurrerande sidor
-
-- **Aktualitet:** Håll innehållet uppdaterat
-
-2. Testa innehållsgenerering
-Generera innehåll enligt reglerna du skapat ovan
-
-Vad vill du generera?
-Generera innehåll
-Genererat innehåll
-
-# SEO-regler för Inläggstext
-
-## Textlängd och struktur
-
-- **Minimilängd**: 300-500 ord för grundläggande SEO
-
-- **Optimalt**: 1000-2000 ord för konkurrenskraftiga sökord
-
-- **Styckelängd**: Max 3-4 meningar per stycke för läsbarhet
-
-## Nyckelord
-
-- **Huvudnyckelord**: Placera inom första 100 orden
-
-- **Nyckelordstäthet**: 0,5-2% av totala texten
-
-- **LSI-nyckelord**: Inkludera 3-5 relaterade termer naturligt
-
-- **Undvik**: Keyword stuffing (överanvändning av nyckelord)
-
-## Rubriker
-
-- **H1**: Endast en, innehåller huvudnyckelord
-
-- **H2-H6**: Logisk hierarki, inkludera variationer av nyckelord
-
-- **Frekvens**: Ny underrubrik var 200-300 ord
-
-## Läsbarhet
-
-- **Flesch Reading Ease**: 60+ (svenska texter)
-
-- **Meningslängd**: Max 20 ord i genomsnitt
-
-- **Passiv form**: Högst 10% av meningarna
-
-- **Övergångsord**: Minst 30% av meningarna
-
-## Formatering
-
-- **Fetstil**: Markera viktiga begrepp (1-3 per 100 ord)
-
-- **Punktlistor**: Bryt upp långa uppräkningar
-
-- **Mellanrum**: Luftig layout med whitespace
-
-## Länkar
-
-- **Interna länkar**: 2-5 till relaterat innehåll
-
-- **Externa länkar**: 1-3 till auktoritativa källor
-
-- **Ankartext**: Beskrivande, varierande
-
-## Meta-element
-
-- **Metabeskrivning**: 140-160 tecken, inkludera nyckelord
-
-- **URL-slug**: Kort, innehåller huvudnyckelord
-
-- **Alt-text bilder**: Beskrivande, inkludera nyckelord när relevant
-
-## Unikt innehåll
-
-- **Originalitet**: 100% unikt, ej kopierat
-
-- **Värde**: Besvara användarens sökintention
-
-- **Uppdatering**: Revidera äldre innehåll regelbundet
-
----
-
-# Prompt för SEO-optimerad Inläggstext
-
-```
-
-Du är en erfaren svensk innehållsskribent specialiserad på SEO-optimerade webbtexter.
-
-Skapa en bloggpost/artikel enligt följande specifikationer:
-
-ÄMNE: [Beskriv ämnet]
-
-HUVUDNYCKELORD: [Primärt sökord]
-
-SEKUNDÄRA NYCKELORD: [2-4 relaterade sökord]
-
-MÅLGRUPP: [Beskriv målgrupp]
-
-TEXTLÄNGD: [Antal ord]
-
-KRAV:
-
-1. Använd huvudnyckelordet inom första 100 orden
-
-2. Inkludera en H1-rubrik med huvudnyckelordet
-
-3. Skapa 3-5 H2-rubriker med nyckelordsvariationer
-
-4. Håll stycken korta (max 4 meningar)
-
-5. Skriv i aktiv form
-
-6. Använd punktlistor för tydlighet
-
-7. Inkludera 2-3 interna länkförslag (ankartext)
-
-8. Föreslå 1-2 externa länkar till trovärdiga källor
-
-9. Håll läsbarheten på Flesch Reading Ease 60+
-
-10. Nyckelordstäthet: 1-1,5%
-
-FORMAT:
-
-- Leverera text i markdown
-
-- Inkludera förslag till metabeskrivning (150 tecken)
-
-- Föreslå URL-slug
-
-- Markera viktiga begrepp med fetstil
-
-TON: [Professionell/informell/utbildande etc.]
+Genom att följa dessa samlade regler och instruktioner säkerställer du en SEO-vänlig, användarcentrerad svensk text som både lockar och engagerar läsare – samtidigt som sökmotorer får önskade signaler. Lycka till!

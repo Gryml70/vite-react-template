@@ -24,6 +24,60 @@ export default function Skrivregler() {
 
 	const [error, setError] = useState<string | null>(null);
 
+	// Export till WordPress
+	const exportToWordPress = () => {
+		if (!generatedContent) return;
+
+		// Skapa WordPress WXR XML-format
+		const now = new Date().toISOString();
+		const title = generatedContent.split('\n')[0].replace(/^#\s*/, '').trim();
+		const content = generatedContent;
+
+		const wxr = `<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0"
+	xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:wp="http://wordpress.org/export/1.2/">
+
+<channel>
+	<title>Handla Hemsida Export</title>
+	<link>https://handla-hemsida.com</link>
+	<description>SEO-optimerat innehåll</description>
+	<pubDate>${now}</pubDate>
+	<language>sv-SE</language>
+	<wp:wxr_version>1.2</wp:wxr_version>
+
+	<item>
+		<title>${title}</title>
+		<pubDate>${now}</pubDate>
+		<dc:creator><![CDATA[admin]]></dc:creator>
+		<content:encoded><![CDATA[${content}]]></content:encoded>
+		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<wp:post_date><![CDATA[${now}]]></wp:post_date>
+		<wp:post_date_gmt><![CDATA[${now}]]></wp:post_date_gmt>
+		<wp:post_type><![CDATA[post]]></wp:post_type>
+		<wp:status><![CDATA[draft]]></wp:status>
+	</item>
+
+</channel>
+</rss>`;
+
+		// Ladda ner som fil
+		const blob = new Blob([wxr], { type: 'application/xml' });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = 'wordpress-export-' + Date.now() + '.xml';
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+		URL.revokeObjectURL(url);
+
+		alert('✅ WordPress-fil exporterad! Importera i WordPress via Verktyg → Importera → WordPress');
+	};
+
 	useEffect(() => {
 		document.title = "Skrivregler - AI-assistent | Handla Hemsida";
 		const metaDescription = document.querySelector('meta[name="description"]');
@@ -411,6 +465,21 @@ export default function Skrivregler() {
 							)}
 						</div>
 					)}
+
+					{/* Export till WordPress knapp */}
+					{generatedContent && validationResult && (
+						<div style={{ marginTop: "32px", textAlign: "center" }}>
+							<button
+								onClick={exportToWordPress}
+								style={{
+									...styles.button,
+									...styles.exportButton,
+								}}
+							>
+								📤 Exportera till WordPress
+							</button>
+						</div>
+					)}
 				</section>
 			</div>
 		</div>
@@ -566,5 +635,9 @@ const styles: Record<string, React.CSSProperties> = {
 		borderRadius: "6px",
 		fontSize: "14px",
 		color: "#1e40af",
+	},
+	exportButton: {
+		backgroundColor: "#059669",
+		color: "white",
 	},
 };
