@@ -1,6 +1,7 @@
 // Edge Function: AI som validerar innehåll mot SEO-reglerna
 
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import { DEFAULT_SEO_RULES } from '../_shared/seo-rules.ts'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -9,29 +10,9 @@ const corsHeaders = {
 
 const CLAUDE_MODEL = 'anthropic/claude-sonnet-4.5'
 
-// Läs SEO-regler från Supabase databas
-async function loadSEORules(): Promise<string> {
-  try {
-    const supabaseUrl = Deno.env.get('SUPABASE_URL') || 'https://aoovgbubyetnymvtshud.supabase.co'
-    const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || ''
-    
-    const res = await fetch(`${supabaseUrl}/rest/v1/seo_rules?select=content&order=updated_at.desc&limit=1`, {
-      headers: {
-        'apikey': serviceKey,
-        'Authorization': `Bearer ${serviceKey}`,
-      }
-    })
-    
-    const data = await res.json()
-    if (data && data[0] && data[0].content) {
-      return data[0].content
-    }
-    
-    return '# Inga regler att validera mot'
-  } catch (err) {
-    console.error('Kunde inte läsa SEO-regler:', err)
-    return '# Inga regler att validera mot'
-  }
+// Använd SEO-regler från delad konstant (redigera i _shared/seo-rules.ts)
+function loadSEORules(): string {
+  return DEFAULT_SEO_RULES
 }
 
 serve(async (req) => {
@@ -59,7 +40,7 @@ serve(async (req) => {
     }
 
     // Läs SEO-regler från fil
-    const seoRules = await loadSEORules()
+    const seoRules = loadSEORules()
 
     const messages = [
       {
