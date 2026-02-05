@@ -28,10 +28,38 @@ export default function Skrivregler() {
 	const exportToWordPress = () => {
 		if (!generatedContent) return;
 
-		// Skapa WordPress WXR XML-format
+		// Extrahera titel, meta-beskrivning, nyckelord och innehåll
+		const lines = generatedContent.split('\n');
+		const title = lines[0].replace(/^#\s*/, '').trim();
+		
+		// Hitta meta-beskrivning (söker efter "Meta-beskrivning:", "Metabeskrivning:" etc.)
+		const metaLine = lines.find(line => 
+			line.toLowerCase().includes('meta') && 
+			(line.toLowerCase().includes('beskrivning') || line.toLowerCase().includes('description'))
+		);
+		const metaDescription = metaLine 
+			? metaLine.replace(/.*?:\s*/i, '').trim().replace(/["""]/g, '') 
+			: title.substring(0, 156);
+
+		// Hitta nyckelord/nyckelordsfras
+		const keywordLine = lines.find(line => 
+			line.toLowerCase().includes('nyckelord') || 
+			line.toLowerCase().includes('keyword') ||
+			line.toLowerCase().includes('fokus')
+		);
+		const keyword = keywordLine 
+			? keywordLine.replace(/.*?:\s*/i, '').trim().replace(/["""]/g, '') 
+			: title.split(' ').slice(0, 3).join(' ');
+
+		// Ta bort meta-info från innehållet (behåll bara riktigt innehåll)
+		const contentLines = lines.filter(line => 
+			!line.toLowerCase().includes('meta') && 
+			!line.toLowerCase().includes('nyckelord') &&
+			!line.toLowerCase().includes('keyword')
+		);
+		const content = contentLines.join('\n');
+
 		const now = new Date().toISOString();
-		const title = generatedContent.split('\n')[0].replace(/^#\s*/, '').trim();
-		const content = generatedContent;
 
 		const wxr = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0"
@@ -54,11 +82,19 @@ export default function Skrivregler() {
 		<pubDate>${now}</pubDate>
 		<dc:creator><![CDATA[admin]]></dc:creator>
 		<content:encoded><![CDATA[${content}]]></content:encoded>
-		<excerpt:encoded><![CDATA[]]></excerpt:encoded>
+		<excerpt:encoded><![CDATA[${metaDescription}]]></excerpt:encoded>
 		<wp:post_date><![CDATA[${now}]]></wp:post_date>
 		<wp:post_date_gmt><![CDATA[${now}]]></wp:post_date_gmt>
 		<wp:post_type><![CDATA[post]]></wp:post_type>
 		<wp:status><![CDATA[draft]]></wp:status>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[_yoast_wpseo_metadesc]]></wp:meta_key>
+			<wp:meta_value><![CDATA[${metaDescription}]]></wp:meta_value>
+		</wp:postmeta>
+		<wp:postmeta>
+			<wp:meta_key><![CDATA[_yoast_wpseo_focuskw]]></wp:meta_key>
+			<wp:meta_value><![CDATA[${keyword}]]></wp:meta_value>
+		</wp:postmeta>
 	</item>
 
 </channel>
