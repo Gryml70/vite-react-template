@@ -5,10 +5,10 @@ const app = new Hono<{ Bindings: Env }>();
 
 // Lösenordsskydd - Basic Authentication
 // Användarnamn: konto
-// Lösenord: HandlaHemsida2026!
+// Lösenord: Guld2026!
 app.use("*", basicAuth({
 	username: "konto",
-	password: "HandlaHemsida2026!",
+	password: "Guld2026!",
 }));
 
 // API-rutt
