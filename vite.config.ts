@@ -13,7 +13,7 @@ function skrivreglerAPIPlugin(): Plugin {
 				if (!req.url?.startsWith("/api/")) return next();
 
 				// Dynamisk import av API-funktioner
-				const { readSEORules, saveSEORules, createRule, generateContent, validateContent } = await import("./src/api/skrivregler");
+				const { readSEORules, saveSEORules, createRule, generateContent, validateContent, fixContent } = await import("./src/api/skrivregler");
 
 				try {
 					let body = "";
@@ -44,6 +44,15 @@ function skrivreglerAPIPlugin(): Plugin {
 					}
 					else if (req.url === "/api/ai/validate" && req.method === "POST") {
 						const content = await validateContent(data.content || "");
+						res.setHeader("Content-Type", "application/json");
+						res.end(JSON.stringify({ content }));
+					}
+					else if (req.url === "/api/ai/fix" && req.method === "POST") {
+						const content = await fixContent(
+							data.originalContent || "",
+							data.validationFeedback || "",
+							data.originalPrompt || ""
+						);
 						res.setHeader("Content-Type", "application/json");
 						res.end(JSON.stringify({ content }));
 					}

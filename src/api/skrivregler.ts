@@ -134,3 +134,56 @@ export async function validateContent(content: string): Promise<string> {
 	const data = await response.json();
 	return data.choices?.[0]?.message?.content || "Kunde inte validera innehåll";
 }
+
+// AI: Fixa innehåll baserat på valideringsfeedback
+export async function fixContent(originalContent: string, validationFeedback: string, originalPrompt: string): Promise<string> {
+	const seoRules = readSEORules();
+	const apiKey = getOpenRouterKey();
+	if (!apiKey) throw new Error("OpenRouter API-nyckel saknas i .env");
+	
+	const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+		method: "POST",
+		headers: {
+			"Authorization": `Bearer ${apiKey}`,
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			model: CLAUDE_MODEL,
+			messages: [
+				{
+					role: "system",
+					content: `Du är en expert på SEO och svenska webbtexter. Din uppgift är att FIXA innehåll som inte följer SEO-reglerna.
+
+STRIKTA REGLER att följa:
+${seoRules}
+
+Du får:
+1. Det ursprungliga innehållet som genererades
+2. Valideringsfeedback som pekar ut EXAKT vad som är fel
+3. Den ursprungliga prompten
+
+Din uppgift:
+- Skriv OM innehållet så det följer ALLA regler perfekt
+- Fixa ALLA fel som valideringen hittade
+- Behåll samma syfte/tema som ursprungsprompt
+- Svara ENDAST med det fixade innehållet, ingen extra text`
+				},
+				{ 
+					role: "user", 
+					content: `URSPRUNGLIG PROMPT: ${originalPrompt}
+
+GENERERAT INNEHÅLL (som har fel):
+${originalContent}
+
+VALIDERINGSFEEDBACK (vad som är fel):
+${validationFeedback}
+
+Skriv om innehållet så det blir PERFEKT enligt reglerna. Fixa ALLA fel som listas i feedbacken.`
+				}
+			]
+		})
+	});
+
+	const data = await response.json();
+	return data.choices?.[0]?.message?.content || "Kunde inte fixa innehåll";
+}

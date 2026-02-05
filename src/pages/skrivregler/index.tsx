@@ -17,6 +17,11 @@ export default function Skrivregler() {
 	const [validationResult, setValidationResult] = useState("");
 	const [loadingValidate, setLoadingValidate] = useState(false);
 
+	// AI 4 - Fixa innehåll (loop)
+	const [loadingFix, setLoadingFix] = useState(false);
+	const [fixAttempts, setFixAttempts] = useState(0);
+	const MAX_FIX_ATTEMPTS = 3;
+
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
@@ -134,10 +139,76 @@ export default function Skrivregler() {
 			if (!response.ok) throw new Error(data.error || "Kunde inte validera");
 			
 			setValidationResult(data.content);
+			return data.content; // Returnera för loop-användning
 		} catch (err) {
 			setError(err instanceof Error ? err.message : "Ett fel uppstod vid validering");
+			return null;
 		} finally {
 			setLoadingValidate(false);
+		}
+	};
+
+	// AI 4: Fixa innehåll automatiskt (med loop)
+	const fixContentAutomatically = async () => {
+		if (!generatedContent || !validationResult || !prompt) {
+			setError("Inget innehåll att fixa");
+			return;
+		}
+
+		// Kolla om redan korrekt
+		if (validationResult.includes("Korrekt ✅")) {
+			alert("✅ Innehållet är redan korrekt!");
+			return;
+		}
+
+		// Kolla max försök
+		if (fixAttempts >= MAX_FIX_ATTEMPTS) {
+			setError(`Max ${MAX_FIX_ATTEMPTS} fix-försök nådda. Försök med en annan prompt.`);
+			return;
+		}
+
+		setLoadingFix(true);
+		setError(null);
+
+		try {
+			// Fixa innehållet
+			const response = await fetch("/api/ai/fix", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ 
+					originalContent: generatedContent,
+					validationFeedback: validationResult,
+					originalPrompt: prompt
+				}),
+			});
+
+			const data = await response.json();
+			if (!response.ok) throw new Error(data.error || "Kunde inte fixa innehåll");
+			
+			// Uppdatera genererat innehåll
+			setGeneratedContent(data.content);
+			setFixAttempts(prev => prev + 1);
+			
+			// Validera automatiskt
+			const newValidation = await validateContent(data.content);
+			
+			// Om fortfarande fel och under max försök, fråga om loop
+			if (newValidation && !newValidation.includes("Korrekt ✅") && fixAttempts + 1 < MAX_FIX_ATTEMPTS) {
+				const shouldContinue = confirm(`Försök ${fixAttempts + 1}/${MAX_FIX_ATTEMPTS} - Innehållet har fortfarande fel. Försöka fixa igen?`);
+				if (shouldContinue) {
+					// Rekursivt anrop (med delay för att inte spamma)
+					setTimeout(() => fixContentAutomatically(), 500);
+				}
+			} else if (newValidation && newValidation.includes("Korrekt ✅")) {
+				alert(`✅ Innehållet är nu korrekt efter ${fixAttempts + 1} försök!`);
+				setFixAttempts(0); // Reset räknare
+			}
+		} catch (err) {
+			setError(err instanceof Error ? err.message : "Ett fel uppstod vid fixande");
+		} finally {
+			setLoadingFix(false);
 		}
 	};
 
@@ -266,11 +337,42 @@ export default function Skrivregler() {
 					
 					<div style={styles.validationBox}>
 						{loadingValidate && <p style={styles.loadingText}>Validerar...</p>}
-						{!loadingValidate && !validationResult && <p style={styles.placeholderText}>Validering körs automatiskt när innehåll genereras...</p>}
-						{!loadingValidate && validationResult && validationResult.split('\n').map((line, index) => (
+						{loadingFix && <p style={styles.loadingText}>🔧 Fixar innehåll... (Försök {fixAttempts + 1}/{MAX_FIX_ATTEMPTS})</p>}
+						{!loadingValidate && !loadingFix && !validationResult && <p style={styles.placeholderText}>Validering körs automatiskt när innehåll genereras...</p>}
+						{!loadingValidate && !loadingFix && validationResult && validationResult.split('\n').map((line, index) => (
 							<p key={index} style={styles.resultLine}>{line}</p>
 						))}
 					</div>
+
+					{/* Fixa automatiskt knapp */}
+					{validationResult && !validationResult.includes("Korrekt ✅") && !loadingFix && (
+						<div style={{ marginTop: "24px", textAlign: "center" }}>
+							<button
+								onClick={fixContentAutomatically}
+								disabled={loadingFix || fixAttempts >= MAX_FIX_ATTEMPTS}
+								style={{
+									...styles.button,
+									...styles.fixButton,
+									...(loadingFix || fixAttempts >= MAX_FIX_ATTEMPTS ? styles.buttonDisabled : {}),
+								}}
+							>
+								🔧 Fixa automatiskt {fixAttempts > 0 && `(${fixAttempts}/${MAX_FIX_ATTEMPTS} försök)`}
+							</button>
+							{fixAttempts >= MAX_FIX_ATTEMPTS && (
+								<p style={{ color: "#dc2626", marginTop: "12px", fontSize: "14px" }}>
+									Max försök nådda. Försök med en ny prompt för bättre resultat.
+								</p>
+							)}
+						</div>
+					)}
+
+					{validationResult && validationResult.includes("Korrekt ✅") && (
+						<div style={{ marginTop: "24px", textAlign: "center" }}>
+							<p style={{ color: "#059669", fontSize: "18px", fontWeight: "bold" }}>
+								✅ Innehållet är perfekt!
+							</p>
+						</div>
+					)}
 				</section>
 			</div>
 		</div>
@@ -368,6 +470,13 @@ const styles: Record<string, React.CSSProperties> = {
 		borderRadius: "6px",
 		cursor: "pointer",
 		marginLeft: "8px",
+	},
+	fixButton: {
+		backgroundColor: "#ea580c",
+		color: "white",
+		fontSize: "18px",
+		padding: "16px 32px",
+		fontWeight: "600",
 	},
 	buttonDisabled: {
 		opacity: 0.5,

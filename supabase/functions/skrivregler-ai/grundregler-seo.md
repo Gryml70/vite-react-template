@@ -45,3 +45,59 @@
 - Tydlig CTA i slutet av texten
 - Använd aktiva verb
 - Gör det lätt att ta nästa steg
+
+# SEO-regler för Rubriker
+
+## Hierarkisk Struktur
+
+- **En H1 per sida** - Huvudrubriken som beskriver sidans innehåll
+
+- **Logisk ordning** - H1 → H2 → H3 → H4 osv, hoppa aldrig över nivåer
+
+- **H2 för huvudavsnitt** - Dela upp innehållet i tydliga sektioner
+
+- **H3-H6 för underrubriker** - Skapa djupare struktur vid behov
+
+## Nyckelord och Innehåll
+
+- **H1 ska innehålla primärt nyckelord** - Helst tidigt i rubriken
+
+- **H2 kan innehålla sekundära nyckelord** - Variera språket naturligt
+
+- **Undvik keyword stuffing** - Skriv för människor först
+
+- **Beskrivande text** - Rubriken ska tydligt beskriva avsnittet
+
+## Längd och Format
+
+- **H1: 20-70 tecken** - Optimal längd för både SEO och läsbarhet
+
+- **H2-H3: 20-60 tecken** - Kortare än H1, men fortfarande beskrivande
+
+- **Undvik hela meningar** - Håll det koncist
+
+- **Använd frågor strategiskt** - Fungerar bra för H2 (matchar röstsökningar)
+
+## Tekniska Krav
+
+- **Endast en H1-tagg** i HTML-koden
+
+- **Använd inte rubriker för styling** - H-taggar är semantiska element
+
+- **Mobilvänlig formatering** - Testa att rubriker bryts snyggt på mobil
+
+- **Undvik VERSALER** - Använd normal kapitalisering
+
+## Best Practices
+
+✓ Gör rubriker självförklarande
+
+✓ Använd aktiva verb när det passar
+
+✓ Inkludera lokala nyckelord för lokal SEO (t.ex. "Stockholm")
+
+✓ Testa läsbarhet - ska förstås utan att läsa brödtexten
+
+✗ Duplicera inte samma rubrik på flera sidor
+
+✗ Lämna inte tomma rubriknivåer
