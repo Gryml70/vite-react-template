@@ -23,26 +23,62 @@ serve(async (req) => {
       )
     }
 
-    // Läs befintligt innehåll
-    const mdFilePath = new URL('../skrivregler-ai/grundregler-seo.md', import.meta.url).pathname
-    let existingContent = ''
-    try {
-      existingContent = await Deno.readTextFile(mdFilePath)
-    } catch (err) {
-      // Filen finns inte än, skapa med header
-      existingContent = '# Grundregler SEO - Svenska webbtexter\n\n'
+    const supabaseUrl = Deno.env.get('SUPABASE_URL') || 'https://aoovgbubyetnymvtshud.supabase.co'
+    const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || ''
+
+    // Hämta befintliga regler
+    const getRes = await fetch(`${supabaseUrl}/rest/v1/seo_rules?select=id,content&order=updated_at.desc&limit=1`, {
+      headers: {
+        'apikey': serviceKey,
+        'Authorization': `Bearer ${serviceKey}`,
+      }
+    })
+    
+    const existing = await getRes.json()
+    let existingContent = '# Grundregler SEO - Svenska webbtexter\n\n'
+    let existingId = null
+    
+    if (existing && existing[0]) {
+      existingContent = existing[0].content
+      existingId = existing[0].id
     }
 
-    // Lägg till ny text med dubbla radbrytningar för separation
+    // Lägg till ny text
     const updatedContent = existingContent.trim() + '\n\n' + textToAdd.trim() + '\n'
 
-    // Skriv tillbaka till fil
-    await Deno.writeTextFile(mdFilePath, updatedContent)
+    // Uppdatera eller skapa
+    let saveRes
+    if (existingId) {
+      saveRes = await fetch(`${supabaseUrl}/rest/v1/seo_rules?id=eq.${existingId}`, {
+        method: 'PATCH',
+        headers: {
+          'apikey': serviceKey,
+          'Authorization': `Bearer ${serviceKey}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ content: updatedContent })
+      })
+    } else {
+      saveRes = await fetch(`${supabaseUrl}/rest/v1/seo_rules`, {
+        method: 'POST',
+        headers: {
+          'apikey': serviceKey,
+          'Authorization': `Bearer ${serviceKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content: updatedContent })
+      })
+    }
+
+    if (!saveRes.ok) {
+      throw new Error(`Kunde inte spara: ${saveRes.statusText}`)
+    }
 
     return new Response(
       JSON.stringify({ 
         success: true, 
-        message: 'Text tillagd i grundregler-seo.md',
+        message: 'Text tillagd i SEO-regler',
         totalLength: updatedContent.length 
       }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

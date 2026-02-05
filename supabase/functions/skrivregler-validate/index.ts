@@ -9,11 +9,25 @@ const corsHeaders = {
 
 const CLAUDE_MODEL = 'anthropic/claude-sonnet-4.5'
 
-// Läs SEO-regler från fil
+// Läs SEO-regler från Supabase databas
 async function loadSEORules(): Promise<string> {
   try {
-    const seoRulesPath = new URL('../skrivregler-ai/grundregler-seo.md', import.meta.url).pathname
-    return await Deno.readTextFile(seoRulesPath)
+    const supabaseUrl = Deno.env.get('SUPABASE_URL') || 'https://aoovgbubyetnymvtshud.supabase.co'
+    const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || ''
+    
+    const res = await fetch(`${supabaseUrl}/rest/v1/seo_rules?select=content&order=updated_at.desc&limit=1`, {
+      headers: {
+        'apikey': serviceKey,
+        'Authorization': `Bearer ${serviceKey}`,
+      }
+    })
+    
+    const data = await res.json()
+    if (data && data[0] && data[0].content) {
+      return data[0].content
+    }
+    
+    return '# Inga regler att validera mot'
   } catch (err) {
     console.error('Kunde inte läsa SEO-regler:', err)
     return '# Inga regler att validera mot'
