@@ -7,7 +7,20 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 
 const SEO_RULES_PATH = path.join(process.cwd(), "supabase/functions/skrivregler-ai/grundregler-seo.md");
-const OPENROUTER_API_KEY = process.env.VITE_OPENROUTER_API_KEY || "";
+
+// Läs API-nyckel från .env (Vite gör inte process.env tillgänglig i server-side kod)
+function getOpenRouterKey(): string {
+	// Försök läsa från .env-fil direkt
+	try {
+		const envPath = path.join(process.cwd(), ".env");
+		const envContent = fs.readFileSync(envPath, "utf-8");
+		const match = envContent.match(/VITE_OPENROUTER_API_KEY=(.+)/);
+		if (match) return match[1].trim();
+	} catch {}
+	
+	return process.env.VITE_OPENROUTER_API_KEY || "";
+}
+
 const CLAUDE_MODEL = "anthropic/claude-sonnet-4.5";
 
 // Läs SEO-regler från fil
@@ -34,10 +47,13 @@ export function saveSEORules(textToAdd: string): { success: boolean; message: st
 
 // AI: Skapa regel
 export async function createRule(question: string): Promise<string> {
+	const apiKey = getOpenRouterKey();
+	if (!apiKey) throw new Error("OpenRouter API-nyckel saknas i .env");
+	
 	const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
 		method: "POST",
 		headers: {
-			"Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+			"Authorization": `Bearer ${apiKey}`,
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
@@ -66,11 +82,13 @@ Svara ENDAST med markdown-formaterad regel, ingen extra förklaring.`
 // AI: Generera innehåll
 export async function generateContent(prompt: string): Promise<string> {
 	const seoRules = readSEORules();
+	const apiKey = getOpenRouterKey();
+	if (!apiKey) throw new Error("OpenRouter API-nyckel saknas i .env");
 	
 	const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
 		method: "POST",
 		headers: {
-			"Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+			"Authorization": `Bearer ${apiKey}`,
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
@@ -92,11 +110,13 @@ export async function generateContent(prompt: string): Promise<string> {
 // AI: Validera innehåll
 export async function validateContent(content: string): Promise<string> {
 	const seoRules = readSEORules();
+	const apiKey = getOpenRouterKey();
+	if (!apiKey) throw new Error("OpenRouter API-nyckel saknas i .env");
 	
 	const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
 		method: "POST",
 		headers: {
-			"Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+			"Authorization": `Bearer ${apiKey}`,
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
