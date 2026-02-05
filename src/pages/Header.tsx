@@ -5,6 +5,7 @@ const nav_links = [
 	{ label: "Tjänster", href: "/tjanster" },
 	{ label: "Om oss", href: "/om-oss" },
 	{ label: "Kontakt", href: "/kontakt" },
+	{ label: "Skrivregler", href: "/skrivregler" },
 	{ label: "Admin", href: "/admin" },
 	{ label: "Förhandsvisning", href: "/preview-mall" },
 ];
