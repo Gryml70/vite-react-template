@@ -3,17 +3,17 @@ import react from "@vitejs/plugin-react";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import type { Plugin } from "vite";
 
-// Vite plugin för Skrivregler API (endast dev-mode)
-function skrivreglerAPIPlugin(): Plugin {
+// Vite plugin för System Prompts API (endast dev-mode)
+function systemPromptsAPIPlugin(): Plugin {
 	return {
-		name: "skrivregler-api",
+		name: "system-prompts-api",
 		apply: "serve", // Endast i dev-mode
 		configureServer(server) {
 			server.middlewares.use(async (req, res, next) => {
 				if (!req.url?.startsWith("/api/")) return next();
 
 				// Dynamisk import av API-funktioner
-				const { readSEORules, saveSEORules, createRule, generateContent, validateContent, fixContent } = await import("./src/api/skrivregler");
+				const { listSystemPrompts, saveSystemPrompt, testSystemPrompt } = await import("./src/api/system-prompts");
 
 				try {
 					let body = "";
@@ -21,40 +21,21 @@ function skrivreglerAPIPlugin(): Plugin {
 					await new Promise(resolve => req.on("end", resolve));
 					const data = body ? JSON.parse(body) : {};
 
-					// Routes
-					if (req.url === "/api/seo-rules" && req.method === "GET") {
-						const content = readSEORules();
+					// System Prompts API Routes
+					if (req.url === "/api/system-prompts/list" && req.method === "GET") {
+						const prompts = listSystemPrompts();
 						res.setHeader("Content-Type", "application/json");
-						res.end(JSON.stringify({ content }));
-					} 
-					else if (req.url === "/api/seo-rules/save" && req.method === "POST") {
-						const result = saveSEORules(data.text || "");
+						res.end(JSON.stringify({ prompts }));
+					}
+					else if (req.url === "/api/system-prompts/save" && req.method === "POST") {
+						const result = saveSystemPrompt(data.name || "", data.content || "");
 						res.setHeader("Content-Type", "application/json");
 						res.end(JSON.stringify(result));
 					}
-					else if (req.url === "/api/ai/create-rule" && req.method === "POST") {
-						const content = await createRule(data.question || "");
+					else if (req.url === "/api/system-prompts/test" && req.method === "POST") {
+						const response = await testSystemPrompt(data.systemPrompt || "", data.userMessage || "");
 						res.setHeader("Content-Type", "application/json");
-						res.end(JSON.stringify({ content }));
-					}
-					else if (req.url === "/api/ai/generate" && req.method === "POST") {
-						const content = await generateContent(data.prompt || "");
-						res.setHeader("Content-Type", "application/json");
-						res.end(JSON.stringify({ content }));
-					}
-					else if (req.url === "/api/ai/validate" && req.method === "POST") {
-						const content = await validateContent(data.content || "");
-						res.setHeader("Content-Type", "application/json");
-						res.end(JSON.stringify({ content }));
-					}
-					else if (req.url === "/api/ai/fix" && req.method === "POST") {
-						const content = await fixContent(
-							data.originalContent || "",
-							data.validationFeedback || "",
-							data.originalPrompt || ""
-						);
-						res.setHeader("Content-Type", "application/json");
-						res.end(JSON.stringify({ content }));
+						res.end(JSON.stringify({ response }));
 					}
 					else {
 						next();
@@ -71,7 +52,7 @@ function skrivreglerAPIPlugin(): Plugin {
 
 // Force rebuild update: 1.0.3
 export default defineConfig({
-	plugins: [react(), cloudflare(), skrivreglerAPIPlugin()],
+	plugins: [react(), cloudflare(), systemPromptsAPIPlugin()],
 	build: {
 		rollupOptions: {
 			output: {

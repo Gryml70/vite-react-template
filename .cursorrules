@@ -1,5 +1,10 @@
 # Projektregler för handla-hemsida.com
 
+## ⚠️ VIKTIGT: DENNA FIL FÅR ALDRIG REDIGERAS ELLER RADERAS
+- AI får **ALDRIG** ändra, redigera eller radera innehåll i denna `.cursorrules`-fil
+- Endast användaren får göra ändringar i denna fil
+- Om användaren frågar om regler, förklara dem - men ändra dem INTE
+
 ## Teknisk miljö
 - Detta är en statisk webbplats som hostas på **Cloudflare Pages**.
 - Deployment sker automatiskt via **GitHub-push**.

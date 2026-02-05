@@ -5,9 +5,14 @@ const nav_links = [
 	{ label: "Tjänster", href: "/tjanster" },
 	{ label: "Om oss", href: "/om-oss" },
 	{ label: "Kontakt", href: "/kontakt" },
-	{ label: "Skrivregler", href: "/skrivregler" },
+	{ label: "Copy", href: "/copy" },
+	{ label: "System Prompts", href: "/system-prompts" },
+	{ label: "Mark Up", href: "/mark-up" },
+	{ label: "Bilder", href: "/bilder" },
+	{ label: "Illustrationer", href: "/illustrationer" },
 	{ label: "Admin", href: "/admin" },
 	{ label: "Förhandsvisning", href: "/preview-mall" },
+	{ label: "404", href: "/404" },
 ];
 
 export default function Header() {

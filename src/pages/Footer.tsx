@@ -26,8 +26,10 @@ const footerStyle: React.CSSProperties = {
 };
 
 const footerInnerStyle: React.CSSProperties = {
-	width: "1440px",
-	maxWidth: "100%",
+	maxWidth: "800px",
+	width: "100%",
+	margin: "0 auto",
+	padding: "0 20px",
 	boxSizing: "border-box",
 	display: "flex",
 	justifyContent: "space-between",

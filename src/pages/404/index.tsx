@@ -14,17 +14,25 @@ export default function NotFound() {
 		document.title = placeholders.meta_title;
 	}, []);
 	return (
-		<article style={articleStyle}>
-			<h1 style={h1Style}>{placeholders.title}</h1>
-			<p style={subtitleStyle}>{placeholders.subtitle}</p>
-			<div style={contentStyle} dangerouslySetInnerHTML={{ __html: placeholders.content }} />
-			<Link to="/hem" style={linkStyle}>
-				Till startsidan
-			</Link>
-		</article>
+		<div style={wrapperStyle}>
+			<article style={articleStyle}>
+				<h1 style={h1Style}>{placeholders.title}</h1>
+				<p style={subtitleStyle}>{placeholders.subtitle}</p>
+				<div style={contentStyle} dangerouslySetInnerHTML={{ __html: placeholders.content }} />
+				<Link to="/hem" style={linkStyle}>
+					Till startsidan
+				</Link>
+			</article>
+		</div>
 	);
 }
 
+const wrapperStyle: React.CSSProperties = {
+	maxWidth: "800px",
+	margin: "0 auto",
+	padding: "40px 20px",
+	textAlign: "center",
+};
 const articleStyle: React.CSSProperties = { fontFamily: "var(--font-family)" };
 const h1Style: React.CSSProperties = {
 	fontSize: "1.75rem",
