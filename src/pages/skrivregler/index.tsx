@@ -78,7 +78,7 @@ export default function Skrivregler() {
 
 		// Bekräfta innan sparande för att undvika dubbletter
 		const preview = selectedText.substring(0, 150);
-		const confirmSave = confirm(`Vill du lägga till denna text i grundregler-seo.md?\n\n"${preview}${selectedText.length > 150 ? '...' : '"}"\n\n(${selectedText.length} tecken)`);
+		const confirmSave = confirm('Vill du lägga till denna text i grundregler-seo.md?\n\n' + preview + (selectedText.length > 150 ? '...' : '') + '\n\n(' + selectedText.length + ' tecken)');
 		
 		if (!confirmSave) {
 			return;

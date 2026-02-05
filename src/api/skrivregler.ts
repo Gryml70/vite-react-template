@@ -75,7 +75,7 @@ Svara ENDAST med markdown-formaterad regel, ingen extra förklaring.`
 		})
 	});
 
-	const data = await response.json();
+	const data: any = await response.json();
 	return data.choices?.[0]?.message?.content || "Kunde inte generera regel";
 }
 
@@ -117,7 +117,7 @@ Svara ENDAST med det genererade innehållet, ingen förklaring.`
 		})
 	});
 
-	const data = await response.json();
+	const data: any = await response.json();
 	return data.choices?.[0]?.message?.content || "Kunde inte generera innehåll";
 }
 
@@ -169,7 +169,7 @@ Svara i detta format:
 		})
 	});
 
-	const data = await response.json();
+	const data: any = await response.json();
 	return data.choices?.[0]?.message?.content || "Kunde inte validera innehåll";
 }
 
@@ -221,6 +221,6 @@ Fixa innehållet så det blir perfekt enligt reglerna. Behåll samma format och 
 		})
 	});
 
-	const data = await response.json();
+	const data: any = await response.json();
 	return data.choices?.[0]?.message?.content || "Kunde inte fixa innehåll";
 }
