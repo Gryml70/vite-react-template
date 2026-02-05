@@ -1,6 +1,15 @@
 import { Hono } from "hono";
+import { basicAuth } from "hono/basic-auth";
 
 const app = new Hono<{ Bindings: Env }>();
+
+// Lösenordsskydd - Basic Authentication
+// Användarnamn: admin
+// Lösenord: HandlaHemsida2026!
+app.use("*", basicAuth({
+	username: "admin",
+	password: "HandlaHemsida2026!",
+}));
 
 // API-rutt
 app.get("/api/", (c) => c.json({ name: "Cloudflare" }));
