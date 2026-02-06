@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { BILDER_CARD_TYPES } from "./CardTypes";
+import PhotoroomCard from "./PhotoroomCard";
+import ProductPhotoCard from "./ProductPhotoCard";
 
 /** Bilder - AI-genererade bilder */
 export default function Bilder() {
@@ -8,11 +10,22 @@ export default function Bilder() {
 			<div style={styles.container}>
 				<h1 style={styles.title}>Bilder</h1>
 				
-				<div style={styles.scrollContainer}>
-					{BILDER_CARD_TYPES.map((cardType) => (
-						<CardComponent key={cardType.id} cardType={cardType} />
-					))}
-				</div>
+			<div style={styles.scrollContainer}>
+				{BILDER_CARD_TYPES.map((cardType) => {
+					// Använd specialiserad komponent för Produkt Bild
+					if (cardType.id === 'produkt-bild') {
+						return <ProductPhotoCard key={cardType.id} cardType={cardType} />;
+					}
+					// Alla andra Photoroom-kort använder PhotoroomCard
+					else if (cardType.isPhotoroom) {
+						return <PhotoroomCard key={cardType.id} cardType={cardType} />;
+					}
+					// Fallback för eventuella icke-Photoroom kort
+					else {
+						return <CardComponent key={cardType.id} cardType={cardType} />;
+					}
+				})}
+			</div>
 			</div>
 		</div>
 	);

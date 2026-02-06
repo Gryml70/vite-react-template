@@ -108,8 +108,53 @@ function CardComponent({ cardType }: { cardType: any }) {
 					</div>
 				)}
 
-				<div style={styles.formGroup}>
-					<label style={styles.label}>Valt nyckelord</label>
+			<div style={styles.formGroup}>
+				<label style={styles.label}>
+					{cardType.id === 'ton-profil' ? 'Välj ton' : 'Valt nyckelord'}
+				</label>
+				{cardType.id === 'ton-profil' ? (
+					<select
+						value={keyword}
+						onChange={(e) => setKeyword(e.target.value)}
+						style={styles.select}
+					>
+						<option value="">-- Välj ton --</option>
+						<optgroup label="PROFESSIONELLA STILAR">
+							<option value="Professionell">Professionell</option>
+							<option value="Formell">Formell</option>
+							<option value="Auktoritativ">Auktoritativ</option>
+							<option value="Teknisk">Teknisk</option>
+							<option value="Akademisk">Akademisk</option>
+							<option value="Prestigefylld">Prestigefylld</option>
+						</optgroup>
+						<optgroup label="PERSONLIGA STILAR">
+							<option value="Vänlig">Vänlig</option>
+							<option value="Personlig">Personlig</option>
+							<option value="Empatisk">Empatisk</option>
+							<option value="Conversational">Conversational (samtalston)</option>
+							<option value="Tillgänglig">Tillgänglig</option>
+						</optgroup>
+						<optgroup label="ENERGISKA STILAR">
+							<option value="Entusiastisk">Entusiastisk</option>
+							<option value="Energisk">Energisk</option>
+							<option value="Inspirerande">Inspirerande</option>
+							<option value="Urgency">Urgency (brådskande)</option>
+						</optgroup>
+						<optgroup label="KREATIVA STILAR">
+							<option value="Humoristisk">Humoristisk</option>
+							<option value="Lekfull">Lekfull</option>
+							<option value="Storytelling">Storytelling</option>
+							<option value="Subtil">Subtil</option>
+						</optgroup>
+						<optgroup label="BALANSERADE STILAR">
+							<option value="Casual">Casual</option>
+							<option value="Lugn">Lugn</option>
+							<option value="Trygg">Trygg</option>
+							<option value="Seriös">Seriös</option>
+							<option value="Direkt">Direkt</option>
+						</optgroup>
+					</select>
+				) : (
 					<input
 						type="text"
 						value={keyword}
@@ -117,7 +162,8 @@ function CardComponent({ cardType }: { cardType: any }) {
 						style={styles.input}
 						placeholder="T.ex: WordPress, SEO..."
 					/>
-				</div>
+				)}
+			</div>
 
 				<div style={styles.formGroup}>
 					<label style={styles.label}>System Prompt</label>
@@ -283,6 +329,16 @@ const styles: Record<string, React.CSSProperties> = {
 		border: "1px solid #ddd",
 		borderRadius: "6px",
 		boxSizing: "border-box",
+	},
+	select: {
+		width: "100%",
+		padding: "10px 12px",
+		fontSize: "14px",
+		border: "1px solid #ddd",
+		borderRadius: "6px",
+		boxSizing: "border-box",
+		backgroundColor: "white",
+		cursor: "pointer",
 	},
 	textarea: {
 		width: "100%",
