@@ -46,7 +46,21 @@ export function saveSystemPrompt(name: string, content: string): { success: bool
  * Testa en system prompt mot Claude AI via OpenRouter
  */
 export async function testSystemPrompt(systemPrompt: string, userMessage: string): Promise<string> {
-	const apiKey = process.env.VITE_OPENROUTER_API_KEY;
+	// Läs API-nyckel från .env-filen direkt
+	const fs = await import("node:fs");
+	const path = await import("node:path");
+	const envPath = path.join(process.cwd(), ".env");
+	
+	let apiKey = process.env.VITE_OPENROUTER_API_KEY;
+	
+	// Om inte tillgänglig via process.env, läs från .env-filen
+	if (!apiKey && fs.existsSync(envPath)) {
+		const envContent = fs.readFileSync(envPath, "utf-8");
+		const match = envContent.match(/VITE_OPENROUTER_API_KEY=(.+)/);
+		if (match) {
+			apiKey = match[1].trim();
+		}
+	}
 	
 	if (!apiKey) {
 		throw new Error("VITE_OPENROUTER_API_KEY saknas i .env");
