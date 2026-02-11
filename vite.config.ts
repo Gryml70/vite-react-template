@@ -45,7 +45,8 @@ function apiPlugin(): Plugin {
 					else if (req.url.startsWith("/api/photoroom")) {
 						// För Photoroom: Skicka FormData direkt från frontend till Photoroom API
 						// Vite middleware kan inte hantera FormData enkelt, så vi gör ett proxy-anrop
-						const { createProductPhoto } = await import("./src/api/photoroom");
+						// Photoroom API import (för framtida användning)
+						// const { createProductPhoto } = await import("./src/api/photoroom");
 						
 						if (req.url === "/api/photoroom/product-photo" && req.method === "POST") {
 							// Samla binär data
