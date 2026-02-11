@@ -82,10 +82,16 @@ export async function testSystemPrompt(systemPrompt: string, userMessage: string
 	});
 
 	if (!response.ok) {
-		const errorData = await response.json();
+		const errorData = await response.json() as { error?: { message: string } };
 		throw new Error(errorData.error?.message || "OpenRouter API-fel");
 	}
 
-	const data = await response.json();
+	const data = await response.json() as {
+		choices: Array<{
+			message?: {
+				content: string
+			}
+		}>
+	};
 	return data.choices[0]?.message?.content || "Inget svar från AI";
 }
